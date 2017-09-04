@@ -13,6 +13,39 @@ class Project(models.Model):
     def __str__(self):
         return self.number + ' - ' + self.name
 
+class DataPoint(models.Model):
+    CPT = "CPT"
+    DCPT = "DCPT"
+    INCLINOMETER = "SI"
+    SETTLEMENT_GAUGE = "SG"
+    PIEZOMETER = "PZ"
+    TEST_PIT = "TP"
+    TEST_HOLE = "TH"
+
+
+    DATA_TYPE_CHOICES = (
+        (CPT, "CPT"),
+        (DCPT, "DCPT"),
+        (INCLINOMETER, "Inclinometer"),
+        (PIEZOMETER, "Piezometer"),
+        (SETTLEMENT_GAUGE, "Settlement gauge"),
+        (TEST_HOLE, "Test hole"),
+        (TEST_PIT, "Test pit"),       
+    )
+
+    project = models.ForeignKey(Project, related_name='datapoints', on_delete=models.CASCADE)
+    data_type = models.CharField(max_length=4, choices=DATA_TYPE_CHOICES)
+    number = models.PositiveIntegerField()
+    date = models.DateField()
+    logged_by = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.data_type + self.date.year[:2] + '-' + self.number
+
+
+
+# These models will be deprecated:
+
 
 class Borehole(models.Model):
     name = models.CharField(max_length=50)
