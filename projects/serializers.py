@@ -1,30 +1,22 @@
 from rest_framework import serializers
-from projects.models import Borehole, Project, Instrument
+from projects.models import Borehole, Project, Instrument, DataPoint
 from django.contrib.auth.models import User
 
-class BoreholeSerializer(serializers.ModelSerializer):
+class DataPointSerializer(serializers.ModelSerializer):
+    name = serializers.ReadOnlyField()
 
     class Meta:
-        model = Borehole
-        fields = ('id', 'project', 'name', 'date_drilled', 'logged_by', 'location')
-
-
-class InstrumentSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Instrument
-        fields = ('id', 'project', 'name', 'instrument_type', 'location')
-
+        model = DataPoint
+        fields = ('id', 'project', 'data_type', 'date', 'number', 'field_tech', 'location', 'name')
 
 class ProjectSerializer(serializers.ModelSerializer):
-    boreholes = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    instruments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    datapoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     
     pm = serializers.ReadOnlyField(source='pm.username')
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'pm', 'location', 'client', 'boreholes', 'instruments')
+        fields = ('id', 'name', 'pm', 'location', 'client', 'boreholes', 'instruments', 'datapoints')
 
 
 class UserSerializer(serializers.ModelSerializer):

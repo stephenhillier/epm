@@ -3,8 +3,12 @@ from django.conf import settings
 
 
 class Project(models.Model):
-
-    pm = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='projects', on_delete=models.CASCADE)
+    '''
+    Represents a project for a client. Parent model for all project related data/objects.
+    '''
+    pm = models.ForeignKey(settings.AUTH_USER_MODEL,
+                           related_name='projects',
+                           on_delete=models.CASCADE)
     number = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -14,6 +18,21 @@ class Project(models.Model):
         return self.number + ' - ' + self.name
 
 class DataPoint(models.Model):
+    '''
+    Data or test location. Parent model for a variety of data types
+    e.g. test hole data or piezometer data.
+
+    Currently supports:
+    -CPT
+    -DCPT
+    -Inclinometers
+    -Settlement gauges
+    -Piezometers
+    -Test pits
+    -Test holes
+    -Sampling points (stockpile, crusher etc.)
+    '''
+
     CPT = "CPT"
     DCPT = "DCPT"
     INCLINOMETER = "SI"
@@ -21,6 +40,7 @@ class DataPoint(models.Model):
     PIEZOMETER = "PZ"
     TEST_PIT = "TP"
     TEST_HOLE = "TH"
+    SAMPLING_POINT = "SA"
 
 
     DATA_TYPE_CHOICES = (
@@ -30,23 +50,26 @@ class DataPoint(models.Model):
         (PIEZOMETER, "Piezometer"),
         (SETTLEMENT_GAUGE, "Settlement gauge"),
         (TEST_HOLE, "Test hole"),
-        (TEST_PIT, "Test pit"),       
+        (TEST_PIT, "Test pit"),
+        (SAMPLING_POINT, "Sampling point")
     )
 
     project = models.ForeignKey(Project, related_name='datapoints', on_delete=models.CASCADE)
     data_type = models.CharField(max_length=4, choices=DATA_TYPE_CHOICES)
     number = models.PositiveIntegerField()
     date = models.DateField()
-    logged_by = models.CharField(max_length=50)
+    location = models.PointField(srid=4326)
+    field_tech = models.CharField(max_length=50)
+
+    @property
+    def name(self):
+        return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
 
     def __str__(self):
-        return self.data_type + self.date.year[:2] + '-' + self.number
+        return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
 
 
-
-# These models will be deprecated:
-
-
+# These models have been replaced by DataPoint and will be deprecated:
 class Borehole(models.Model):
     name = models.CharField(max_length=50)
     project = models.ForeignKey(Project, related_name='boreholes', on_delete=models.CASCADE)

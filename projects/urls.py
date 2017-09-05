@@ -4,8 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'projects', views.APIProjectViewSet, base_name='project')
-router.register(r'boreholes', views.APIBoreholeViewSet, base_name='borehole')
-router.register(r'instruments', views.APIInstrumentViewSet, base_name='instrument')
+router.register(r'data', views.APIDataPointViewSet, base_name='datapoint')
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
