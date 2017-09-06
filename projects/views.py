@@ -19,8 +19,6 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
     serializer_class = DataPointSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-class LandingView(TemplateView):
-    template_name = "landing.html"
 
 class ProjectsAppView(TemplateView):
     template_name = "projects/index.html"

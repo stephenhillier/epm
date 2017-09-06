@@ -8,7 +8,5 @@ router.register(r'data', views.APIDataPointViewSet, base_name='datapoint')
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
-    url(r'^projects/', views.ProjectsAppView.as_view(), name='project-app'),
-    url(r'^', views.LandingView.as_view(), name='landing'),
-
+    url(r'^', views.ProjectsAppView.as_view(), name='project-app'),
 ]
