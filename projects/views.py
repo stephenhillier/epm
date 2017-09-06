@@ -1,3 +1,4 @@
+from django.views.generic import TemplateView
 from rest_framework import permissions, viewsets
 from rest_framework.reverse import reverse
 from projects.models import Project, DataPoint
@@ -18,7 +19,8 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
     serializer_class = DataPointSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    #def get_queryset(self):
-    #    project = self.kwargs['pk']
-    #    return Borehole.objects.filter(project=project)
+class LandingView(TemplateView):
+    template_name = "landing.html"
 
+class ProjectsAppView(TemplateView):
+    template_name = "projects/index.html"

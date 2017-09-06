@@ -69,7 +69,7 @@ class DataPoint(models.Model):
         return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
 
 
-# These models have been replaced by DataPoint and will be deprecated:
+# These models have been replaced by DataPoint:
 class Borehole(models.Model):
     name = models.CharField(max_length=50)
     project = models.ForeignKey(Project, related_name='boreholes', on_delete=models.CASCADE)
