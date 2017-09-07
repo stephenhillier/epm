@@ -7,7 +7,7 @@ from landing.forms import HelloForm
 class LandingView(SuccessMessageMixin, CreateView):
     template_name = "landing/landing.html"
     form_class = HelloForm
-    success_url = "/"
+    success_url = "/#sayhello"
 
     def get_success_message(self, cleaned_data):
         print('test')
