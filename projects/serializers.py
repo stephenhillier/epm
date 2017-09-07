@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from projects.models import Borehole, Project, Instrument, DataPoint
+from projects.models import Project, DataPoint
 from django.contrib.auth.models import User
 
 class DataPointSerializer(serializers.ModelSerializer):

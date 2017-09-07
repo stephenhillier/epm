@@ -31,29 +31,33 @@
 					<span class="navbar-toggler-bar"></span>
 					<span class="navbar-toggler-bar"></span>
 	            </button>
-	            <a class="navbar-brand" href="/">Earthworks QC</a>
+				<a class="navbar-brand" href="/">Earthworks QC</a>
+				
 			</div>
 	        <div class="collapse navbar-collapse" id="navbarToggler">
 	            <ul class="navbar-nav ml-auto">
+					
+
+					
 					<li class="nav-item">
-	                    <a href="/projects/" class="nav-link"><i class="nc-icon nc-tile-56"></i>My Projects</a>
+	                    <a href="#sayhello" class="nav-link"><i class="nc-icon nc-tile-56"></i>My Projects</a>
 	                </li>
 	            </ul>
 	        </div>
 		</div>
     </nav>
-
+	</div>
 		<div class="page-header" data-parallax="true" style="background-image: url('{% static "projects/img/dam.jpg" %}');">
 			<div class="filter"></div>
 			<div class="container">
 			    <div class="motto text-center">
-                    <h2>Earthworks QC: for your world class projects</h2>
-                    <h3 style="padding-bottom:20px">Quality control solutions for engineering and construction professionals</h3>
-                    <button type="button" class="btn btn-danger btn-round">Get Started</button>
+                    <h2>Earthworks QC: for world class projects</h2>
+                    <h3 style="padding-bottom:20px">Quality control solutions for construction professionals and engineers</h3>
+                    <a href="#details" class="btn btn-danger btn-round">Get Started</a>
 			    </div>
 			</div>
     	</div>
-        <div class="main">
+        <div class="main"><a name="details"></a>
 			<div class="section text-center">
             <div class="container">
                 <div class="row">
@@ -61,7 +65,7 @@
                         <h2 class="title">Organize your projects</h2>
                         <h5 class="description">Earthworks QC helps you organize your quality control so you can focus on getting the job done. Manage your construction materials, specifications and testing, and issue reports with the click of a button.</h5>
                         <br>
-                        <a href="#paper-kit" class="btn btn-danger btn-round">See Details</a>
+                        <a href="#sayhello" class="btn btn-danger btn-round">Find out more</a>
                     </div>
                 </div>
 				<br/><br/>
@@ -74,7 +78,7 @@
 							<div class="description">
 								<h4 class="info-title">Anywhere</h4>
 								<p class="description">Get quality control test results anywhere with our mobile-friendly applications.</p>
-								<a href="#pkp" class="btn btn-link btn-success">See more</a>
+								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
 						</div>
 					</div>
@@ -86,7 +90,7 @@
 							<div class="description">
 								<h4 class="info-title">Visualize Your Projects</h4>
 								<p>Map sampling and testing locations, even across projects.</p>
-								<a href="#pkp" class="btn btn-link btn-success">See more</a>
+								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
 						</div>
 					</div>
@@ -98,7 +102,7 @@
 							<div class="description">
 								<h4 class="info-title">High Performance</h4>
 								<p>Modern, secure database technology keeps your data moving between site and office.</p>
-								<a href="#pkp" class="btn btn-link btn-success">See more</a>
+								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
 						</div>
 					</div>
@@ -110,12 +114,58 @@
 							<div class="description">
 								<h4 class="info-title">Flexible</h4>
 								<p>From small projects to massive civil works, we have a solution tailored for you.</p>
-								<a href="#pkp" class="btn btn-link btn-success">See more</a>
+								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
-						</div>
+							<a name="sayhello"></a></div>
 					</div>
 				</div>
-
+				
+			</div>
+			<div class="section landing-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2"><a name="sayhello"></a>
+							<h2 class="text-center">Earthworks QC is coming soon</h2>
+							<h3 class="text-center">In the meantime, send us a quick hello!</h3>
+                            <form class="contact-form" method='POST' action=''> {% csrf_token %}
+								<div class="row">
+									<div class="col-md-6 text-danger">{{ form.name.errors.as_text }}</div>
+									<div class="col-md-6 text-danger">{{ form.email.errors.as_text }}</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<label for="id_name">Name</label>
+										
+										<div class="input-group">
+	                                        <span class="input-group-addon">
+	                                            <i class="nc-icon nc-single-02"></i>
+	                                        </span>
+	                                        {{ form.name }}
+	                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+										<label for="id_email">Email</label>
+										
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="nc-icon nc-email-85"></i>
+											</span>
+											{{ form.email }}
+										</div>
+                                    </div>
+                                </div>
+								<label for="id_message">Tell us what you think! Why not let us know what quality control or progress reports you spend the most time on?</label>
+								{{ form.message.errors }}
+                                {{ form.message }}
+                                <div class="row">
+                                    <div class="col-md-4 offset-md-4">
+                                        <input type ='submit' value='Submit' class="btn btn-danger btn-lg btn-fill">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -127,7 +177,7 @@
 			<div class="row">
 				<nav class="footer-nav">
 					<ul>
-						<li><a href="#">Contact us</a></li>
+						<li><a href="#sayhello">Contact us</a></li>
 					</ul>
 				</nav>
 				<div class="credits ml-auto">
