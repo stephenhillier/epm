@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView, ListView
 from rest_framework import permissions, viewsets
 from rest_framework.reverse import reverse
 from projects.models import Project, DataPoint
@@ -20,5 +20,6 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class ProjectsAppView(TemplateView):
-    template_name = "projects/index.html"
+class ProjectsAppView(ListView):
+    template_name = "projects/datapoint_map.html"
+    model = DataPoint
