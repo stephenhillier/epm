@@ -20,6 +20,6 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
 
 
-class ProjectsAppView(ListView):
+class ProjectsMapView(ListView):
     template_name = "projects/datapoint_map.html"
     model = DataPoint
