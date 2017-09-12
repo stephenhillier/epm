@@ -15,9 +15,11 @@ class APIProjectViewSet(viewsets.ModelViewSet):
         serializer.save(pm=self.request.user)
 
 class APIDataPointViewSet(viewsets.ModelViewSet):
-    queryset = DataPoint.objects.all()
     serializer_class = DataPointSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return DataPoint.objects.filter(project_id=self.kwargs['project'])
 
 
 class ProjectsMapView(ListView):

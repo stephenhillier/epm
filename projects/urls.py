@@ -3,8 +3,9 @@ from projects import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
+router.register(r'projects/(?P<project>\d+)/data', views.APIDataPointViewSet, base_name='datapoint')
 router.register(r'projects', views.APIProjectViewSet, base_name='project')
-router.register(r'data', views.APIDataPointViewSet, base_name='datapoint')
+
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
