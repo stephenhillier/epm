@@ -69,6 +69,46 @@ class DataPoint(models.Model):
         return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
 
 
+class SoilLayer(models.Model):
+    '''
+    Soil layers with visual descriptions and USCS classifications.
+
+    - Each SoilLayer instance attaches to a "testhole" type DataPoint instance
+    - Subsequent layers should be continuous (however, this is not enforced).
+    - This model doesn't directly include lab tests, although test results may determine
+    the USCS classification for layers. Lab tests are associated with samples.
+
+    Future: automatically fill in soil layers based on tests performed on samples
+            in that layer.
+    '''
+    
+    # abbreviations from Unified Soil Classification System:
+    USCS_CHOICES = (
+        ('CL', 'CL'),         # Clay, low plasticity
+        ('ML', 'ML'),         # Silt, low plasticity
+        ('OL', 'OL'),         # Organic silt
+        ('PT', 'PT'),         # Peat
+        ('SP', 'SP'),         # Sand, poorly graded, clean (less than 5% fines)
+        ('SW', 'SW'),         # Sand, well graded, clean
+        ('SM', 'SM'),         # Sand, > 12% fines (some silt to silty)
+        ('SC', 'SC'),         # Sand, clayey
+        ('GP', 'GP'),         # Gravel, poorly graded, clean
+        ('GW', 'GW'),         # Gravel, well graded, clean
+        ('GM', 'GM'),         # Gravel > 12% fines
+        ('GC', 'GC'),
+        ('SPSM', 'SP-SM'),    # Sand, poorly graded, 5-12% fines
+        ('GPGM', 'GP-GM'),    # Gravel, poorly graded, 5-12% fines
+        ('CLML', 'CL-ML'),    # Clay/silt (borderline Atterberg plot)
+        ('ROCK', 'ROCK'),     # Bedrock
+    )
+
+    borehole = models.ForeignKey(DataPoint, related_name='soil_layers', on_delete=models.CASCADE)
+    depth_from = models.DecimalField()
+    depth_to = models.DecimalField()
+    uscs = models.CharField(max_length=4, choices=USCS_CHOICES)
+    description = models.TextField(blank=True, null=True)
+
+
 # These models have been replaced by DataPoint:
 class Borehole(models.Model):
     name = models.CharField(max_length=50)
