@@ -109,8 +109,8 @@ class SoilLayer(models.Model):
     )
 
     borehole = models.ForeignKey(DataPoint, related_name='soil_layers', on_delete=models.CASCADE)
-    depth_from = models.DecimalField()
-    depth_to = models.DecimalField()
+    depth_from = models.DecimalField(max_digits=5, decimal_places=2)
+    depth_to = models.DecimalField(max_digits=5, decimal_places=2)
     uscs = models.CharField(max_length=4, choices=USCS_CHOICES)
     description = models.TextField(blank=True, null=True)
 
