@@ -14,6 +14,7 @@ class Project(models.Model):
     location = models.CharField(max_length=100)
     client = models.CharField(max_length=50)
 
+    # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
     def __str__(self):
         return self.number + ' - ' + self.name
 
@@ -33,14 +34,18 @@ class DataPoint(models.Model):
     -Sampling points (stockpile, crusher etc.)
     '''
 
-    CPT = "CPT"
-    DCPT = "DCPT"
-    INCLINOMETER = "SI"
-    SETTLEMENT_GAUGE = "SG"
-    PIEZOMETER = "PZ"
-    TEST_PIT = "TP"
-    TEST_HOLE = "TH"
-    SAMPLING_POINT = "SA"
+    # DataPoint instances must be one of the following types.
+    # Related data will depend on the type of DataPoint
+    # e.g. TH/"Test hole" will have related fields "SoilLayer" and "Sample" containing field data
+    
+    CPT = "CPT"                 # Cone Penetration Test
+    DCPT = "DCPT"               # Dynamic Cone
+    INCLINOMETER = "SI"         # Inclinometer/Slope Indicator
+    SETTLEMENT_GAUGE = "SG"     # Settlement hub (fixed survey target to measure settlement over time)
+    PIEZOMETER = "PZ"           # water level piezo/standpipe
+    TEST_PIT = "TP"             # Test pit excavation
+    TEST_HOLE = "TH"            # Drilled test hole
+    SAMPLING_POINT = "SA"       # General sampling point e.g. stockpile grab sample
 
 
     DATA_TYPE_CHOICES = (
@@ -61,12 +66,13 @@ class DataPoint(models.Model):
     location = models.PointField(srid=4326)
     field_tech = models.CharField(max_length=50)
 
+    # standard name format with instrument/hole type, year, and number e.g. TH17-3
     @property
     def name(self):
         return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
 
     def __str__(self):
-        return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
+        return self.name
 
 
 class SoilLayer(models.Model):
@@ -81,7 +87,7 @@ class SoilLayer(models.Model):
     Future: automatically fill in soil layers based on tests performed on samples
             in that layer.
     '''
-    
+ 
     # abbreviations from Unified Soil Classification System:
     USCS_CHOICES = (
         ('CL', 'CL'),         # Clay, low plasticity
