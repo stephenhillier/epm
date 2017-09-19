@@ -41,7 +41,7 @@ class DataPoint(models.Model):
     CPT = "CPT"                 # Cone Penetration Test
     DCPT = "DCPT"               # Dynamic Cone
     INCLINOMETER = "SI"         # Inclinometer/Slope Indicator
-    SETTLEMENT_GAUGE = "SG"     # Settlement hub (fixed survey target to measure settlement over time)
+    SETTLEMENT_GAUGE = "SG"     # Settlement hub (a fixed survey target to measure settlement over time)
     PIEZOMETER = "PZ"           # water level piezo/standpipe
     TEST_PIT = "TP"             # Test pit excavation
     TEST_HOLE = "TH"            # Drilled test hole
@@ -84,8 +84,6 @@ class SoilLayer(models.Model):
     - This model doesn't directly include lab tests, although test results may determine
     the USCS classification for layers. Lab tests are associated with samples.
 
-    Future: automatically fill in soil layers based on tests performed on samples
-            in that layer.
     '''
  
     # abbreviations from Unified Soil Classification System:
@@ -101,7 +99,7 @@ class SoilLayer(models.Model):
         ('GP', 'GP'),         # Gravel, poorly graded, clean
         ('GW', 'GW'),         # Gravel, well graded, clean
         ('GM', 'GM'),         # Gravel > 12% fines
-        ('GC', 'GC'),
+        ('GC', 'GC'),         # Gravel, clayey
         ('SPSM', 'SP-SM'),    # Sand, poorly graded, 5-12% fines
         ('GPGM', 'GP-GM'),    # Gravel, poorly graded, 5-12% fines
         ('CLML', 'CL-ML'),    # Clay/silt (borderline Atterberg plot)
