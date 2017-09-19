@@ -8,7 +8,7 @@
 <h1>Projects</h1>
 <ul>
 {% for project in object_list %}
-    <li>{{ project.number }} - {{ project.name }}</li>
+    <li><a href="{% url 'project-detail' project.id %}">{{ project.number }} - {{ project.name }}</a></li>
 {% empty %}
     <li>No projects yet.</li>
 {% endfor %}

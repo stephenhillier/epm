@@ -32,4 +32,14 @@ class ProjectsView(CreateView):
 
 class ProjectsListView(ListView):
     model = Project
+
+class ProjectDetailView(DetailView):
+    model = Project
+    pk_url_kwarg = 'project'
+
+class DataPointDetailView(DetailView):
+    model = DataPoint
+
+    def get_queryset(self):
+        return DataPoint.objects.filter(project_id=self.kwargs['project'])
     
