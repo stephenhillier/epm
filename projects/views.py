@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from rest_framework import permissions, viewsets
 from rest_framework.reverse import reverse
 from projects.models import Project, DataPoint
@@ -25,3 +25,11 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
 class ProjectsMapView(ListView):
     template_name = "projects/datapoint_map.html"
     model = DataPoint
+
+class ProjectsView(CreateView):
+    model = Project
+    fields = ['number', 'name', 'pm', 'location', 'client']
+
+class ProjectsListView(ListView):
+    model = Project
+    
