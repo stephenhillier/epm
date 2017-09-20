@@ -26,7 +26,7 @@ class ProjectsMapView(ListView):
     template_name = "projects/datapoint_map.html"
     model = DataPoint
 
-class ProjectsView(CreateView):
+class ProjectCreateView(CreateView):
     model = Project
     fields = ['number', 'name', 'pm', 'location', 'client']
 

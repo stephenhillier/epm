@@ -52,7 +52,7 @@
         <ul class="nav">
             <li>
                 <a href="{% url 'project-detail' object.id %}">
-                    <i class="pe-7s-user"></i>
+                    <i class="pe-7s-note"></i>
                     <p>Project overview</p>
                 </a>
             </li>
@@ -61,11 +61,17 @@
         {% else %}
         <ul class="nav">
                 <li>
-                    <a href="/projects/list/">
+                    <a href="{% url 'project-list' %}">
                         <i class="pe-7s-right-arrow"></i>
                         <p>Project list</p>
                     </a>
                 </li>
+                <li>
+                        <a href="{% url 'project-create' %}">
+                            <i class="pe-7s-right-arrow"></i>
+                            <p>New project</p>
+                        </a>
+                    </li>
             </ul>
         {% endif %}
 
@@ -73,28 +79,39 @@
     </div>
 
     <div class="main-panel">
-        <nav class="navbar navbar-default navbar-fixed">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar bar1"></span>
-                        <span class="icon-bar bar2"></span>
-                        <span class="icon-bar bar3"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#">
-                                <p>Settings</p>
-                            </a>
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-default navbar-fixed">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
 
-                </div>
-            </div>
-        </nav>
+                        </div>
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav navbar-left">
+                                
+                                
+                            </ul>
+        
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                   <a href="">
+                                       Account
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/accounts/logout/">
+                                        Log out
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
         
         
         <div class="content">
