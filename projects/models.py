@@ -1,5 +1,6 @@
 from django.contrib.gis.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 class Project(models.Model):
@@ -17,6 +18,9 @@ class Project(models.Model):
     # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
     def __str__(self):
         return self.number + ' - ' + self.name
+
+    def get_absolute_url(self):
+        return reverse('project-detail', kwargs={'project': self.id})
 
 class DataPoint(models.Model):
     '''

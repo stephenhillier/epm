@@ -4,6 +4,8 @@
 
     {% block project_title %}{{ object.name }}{% endblock project_title %}
 
+    {% block breadcrumbs %}{{ object.name }} ({{ object.number }}){% endblock breadcrumbs %}
+
     {% block css %}
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
         integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
@@ -70,7 +72,7 @@
                 
                     {% for obj in object.datapoints.all %}
                     marker = new L.marker([{{ obj.location.y }},{{ obj.location.x }}])
-                                .bindPopup("{{ obj.project }}<br>{{ obj.name }}")
+                                .bindPopup("{{ obj.project }}<br>{{ obj.name }} ({{ obj.get_data_type_display }})")
                                 .addTo(map);
                                 
                     {% endfor %}
@@ -97,7 +99,7 @@
                                         {% for datapoint in object.datapoints.all %}
                                             <tr>
                                                 <td>{{ datapoint.name }}</td>
-                                                <td>{{ datapoint.data_type }}</td>
+                                                <td>{{ datapoint.get_data_type_display }}</td>
                                                 <td>{{ datapoint.location.x }}</td>
                                                 <td>{{ datapoint.location.y }}</td>
                                             </tr>
