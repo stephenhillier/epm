@@ -37,6 +37,9 @@ class ProjectDetailView(DetailView):
     model = Project
     pk_url_kwarg = 'project'
 
+class ProjectHomeView(TemplateView):
+    template_name = 'projects/start.html'
+
 class DataPointDetailView(DetailView):
     model = DataPoint
 
