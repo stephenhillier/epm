@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^(?P<project>\d+)/$', views.ProjectDetailView.as_view(), name='project-detail'),
     url(r'^list/', views.ProjectsListView.as_view(), name='project-list'),
     url(r'^new/', views.ProjectCreateView.as_view(), name='project-create'),
-    url(r'^map/', views.ProjectsMapView.as_view(), name='project-map'),
     url(r'^', views.ProjectHomeView.as_view(), name='project-home'),
     url(r'^api/', include(router.urls)),
 ]

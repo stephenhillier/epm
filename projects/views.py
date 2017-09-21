@@ -23,14 +23,8 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
         return DataPoint.objects.filter(project_id=self.kwargs['project'])
 
 
-class ProjectsMapView(LoginRequiredMixin, ListView):
-    template_name = "projects/datapoint_map.html"
-    model = DataPoint
-
-
-class ProjectCreateView(LoginRequiredMixin, CreateView):
-    model = Project
-    fields = ['number', 'name', 'pm', 'location', 'client']
+class ProjectHomeView(LoginRequiredMixin, TemplateView):
+    template_name = 'projects/start.html'
 
 
 class ProjectsListView(LoginRequiredMixin, ListView):
@@ -42,27 +36,31 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
     pk_url_kwarg = 'project'
 
 
-class ProjectHomeView(LoginRequiredMixin, TemplateView):
-    template_name = 'projects/start.html'
-
-class TestHoleList(LoginRequiredMixin, DetailView):
-    template_name = 'projects/testhole_list.html'
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
-    pk_url_kwarg = 'project'
+    fields = ['number', 'name', 'pm', 'location', 'client']
+
 
 class InstrumentList(LoginRequiredMixin, DetailView):
     template_name = 'projects/instrument_list.html'
     model = Project
     pk_url_kwarg = 'project'
 
+
+class TestHoleList(LoginRequiredMixin, DetailView):
+    template_name = 'projects/testhole_list.html'
+    model = Project
+    pk_url_kwarg = 'project'
+
+
 class TestHoleDetailView(LoginRequiredMixin, DetailView):
     template_name = 'projects/testhole_detail.html'
     model = Project
     pk_url_kwarg = 'project'
 
+    # Get DataPoint object with pk given by url kwarg 'testhole', add it to context
     def get_context_data(self, **kwargs):
         context = super(TestHoleDetailView, self).get_context_data(**kwargs)
         testhole = DataPoint.objects.get(pk=self.kwargs['testhole'])
         context['testhole'] = testhole
         return context
-        
