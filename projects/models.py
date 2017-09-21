@@ -18,9 +18,9 @@ class Project(models.Model):
     
     @property
     def project(self):
-    """
-    Property self.project returns PK so both parent and related models have object.project available
-    """
+        """
+        Property self.project returns PK so both parent and related models have object.project available
+        """
         return self.id
 
     # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
@@ -32,15 +32,15 @@ class Project(models.Model):
 
     
     def get_testholes(self):
-    """
-    Iterable list of all testhole objects
-    """
+        """
+        Iterable list of all testhole objects
+        """
         return self.datapoints.filter(data_type='TH')
 
     def get_instruments(self):
-    """
-    Iterable list of all non-testhole objects (e.g. all instruments)
-    """
+        """
+        Iterable list of all non-testhole objects (e.g. all instruments)
+        """
         return self.datapoints.exclude(data_type='TH')
 
 class DataPoint(models.Model):
