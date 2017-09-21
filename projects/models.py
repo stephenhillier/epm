@@ -163,36 +163,3 @@ class SoilLayer(models.Model):
     
     def __str__(self):
         return str(round(self.depth_from,1)) + ' m: ' + self.get_uscs_display()
-
-
-# These models have been replaced by DataPoint:
-class Borehole(models.Model):
-    name = models.CharField(max_length=50)
-    project = models.ForeignKey(Project, related_name='boreholes', on_delete=models.CASCADE)
-    location = models.PointField(srid=4326)
-    date_drilled = models.DateField()
-    logged_by = models.CharField(max_length=50)
-
-    class Meta:
-        ordering = ['name']
-
-    def __str__(self):
-        return self.name
-
-class Instrument(models.Model):
-    SETTLEMENT_GAUGE = "SG"
-    PIEZOMETER = "PZ"
-    INSTRUMENT_TYPE_CHOICES = (
-        (SETTLEMENT_GAUGE, "Settlement gauge"),
-        (PIEZOMETER, "Piezometer"),
-    )
-    name = models.CharField(max_length=50)
-    project = models.ForeignKey(Project, related_name='instruments', on_delete=models.CASCADE)
-    instrument_type = models.CharField(max_length=2, choices=INSTRUMENT_TYPE_CHOICES)
-    location = models.PointField(srid=4326)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
