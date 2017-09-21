@@ -14,8 +14,7 @@ class Project(models.Model):
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     client = models.CharField(max_length=50)
-
-    
+   
     @property
     def project(self):
         """
@@ -160,6 +159,27 @@ class SoilLayer(models.Model):
 
     class Meta:
         ordering = ['depth_from']
-    
+
     def __str__(self):
-        return str(round(self.depth_from,1)) + ' m: ' + self.get_uscs_display()
+        return str(round(self.depth_from, 1)) + ' m: ' + self.get_uscs_display()
+
+
+class SoilSample(models.Model):
+    """
+    Soil sample from a testhole or sampling point
+    - Each sample may have one or more lab tests associated with it.
+    - Foreign key to DataPoint
+    - related name: soil_samples
+    """
+    datapoint = models.ForeignKey(DataPoint, related_name='soil_samples', on_delete=models.CASCADE)
+    number = models.PositiveIntegerField()
+    date = models.DateField()
+    field_tech = models.CharField(max_length=50)
+    depth_from = models.DecimalField(max_digits=5, decimal_places=2)
+    depth_to = models.DecimalField(max_digits=5, decimal_places=2)
+
+    class Meta:
+        ordering = ['number']
+
+    def __str__(self):
+        return self.datapoint.name + ' SA' + self.number
