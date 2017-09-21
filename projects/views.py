@@ -54,3 +54,15 @@ class InstrumentList(LoginRequiredMixin, DetailView):
     template_name = 'projects/instrument_list.html'
     model = Project
     pk_url_kwarg = 'project'
+
+class TestHoleDetailView(LoginRequiredMixin, DetailView):
+    template_name = 'projects/testhole_detail.html'
+    model = Project
+    pk_url_kwarg = 'project'
+
+    def get_context_data(self, **kwargs):
+        context = super(TestHoleDetailView, self).get_context_data(**kwargs)
+        testhole = DataPoint.objects.get(pk=self.kwargs['testhole'])
+        context['testhole'] = testhole
+        return context
+        

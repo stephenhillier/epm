@@ -29,10 +29,14 @@
                             <tbody>
                                 {% for testhole in object.get_testholes %}
                                     <tr>
-                                        <td>{{ testhole.name }}</td>
+                                        <td>
+                                        <a href="{% url 'testhole-detail' project=object.project testhole=testhole.id %}">
+                                            {{ testhole.name }}
+                                        </a>
+                                        </td>
                                         <td>{{ testhole.get_data_type_display }}</td>
-                                        <td>{{ testhole.location.x }}</td>
-                                        <td>{{ testhole.location.y }}</td>
+                                        <td>{{ testhole.location.x|floatformat:6 }}</td>
+                                        <td>{{ testhole.location.y|floatformat:6 }}</td>
                                     </tr>
                                 {% empty %}
                                     <tr>
