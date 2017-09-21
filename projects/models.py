@@ -9,7 +9,7 @@ class Project(models.Model):
     """
     pm = models.ForeignKey(settings.AUTH_USER_MODEL,
                            related_name='projects',
-                           on_delete=models.CASCADE)
+                           on_delete=models.PROTECT)
     number = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -105,7 +105,7 @@ class DataPoint(models.Model):
         """
 
         # If object is a borehole, return all related SoilLayer instances as a soil unit sequence
-        if self.data_type == 'TH':
+        if self.data_type == self.TEST_HOLE:
             sequence = []
             for layer in self.soil_layers.all():
                 sequence.append(str(layer))
