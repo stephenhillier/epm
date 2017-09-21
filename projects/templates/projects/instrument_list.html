@@ -29,7 +29,7 @@
                             <tbody>
                                 {% for instrument in object.get_instruments %}
                                     <tr>
-                                        <td>{{ instrument.name }}</td>
+                                        <td><a href="{% url 'instrument-detail' project=object.project instrument=instrument.id %}">{{ instrument.name }}</a></td>
                                         <td>{{ instrument.get_data_type_display }}</td>
                                         <td>{{ instrument.location.x }}</td>
                                         <td>{{ instrument.location.y }}</td>

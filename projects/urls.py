@@ -9,6 +9,7 @@ router.register(r'projects', views.APIProjectViewSet, base_name='project-api')
 urlpatterns = [
     url(r'^(?P<project>\d+)/data/testholes/(?P<testhole>\d+)/$', views.TestHoleDetailView.as_view(), name='testhole-detail'),
     url(r'^(?P<project>\d+)/data/testholes/$', views.TestHoleList.as_view(), name='testhole-list'),
+    url(r'^(?P<project>\d+)/data/instruments/(?P<instrument>\d+)/', views.InstrumentDetailView.as_view(), name='instrument-detail'),
     url(r'^(?P<project>\d+)/data/instruments/$', views.InstrumentList.as_view(), name='instrument-list'),
     url(r'^(?P<project>\d+)/$', views.ProjectDetailView.as_view(), name='project-detail'),
     url(r'^list/', views.ProjectsListView.as_view(), name='project-list'),
