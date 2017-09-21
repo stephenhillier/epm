@@ -15,12 +15,22 @@ class Project(models.Model):
     location = models.CharField(max_length=100)
     client = models.CharField(max_length=50)
 
+    @property
+    def project(self):
+        return self.id
+
     # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
     def __str__(self):
         return self.number + ' - ' + self.name
 
     def get_absolute_url(self):
         return reverse('project-detail', kwargs={'project': self.id})
+
+    def get_testholes(self):
+        return self.datapoints.filter(data_type='TH')
+
+    def get_instruments(self):
+        return self.datapoints.exclude(data_type='TH')
 
 class DataPoint(models.Model):
     '''

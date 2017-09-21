@@ -45,10 +45,12 @@ class ProjectDetailView(LoginRequiredMixin, DetailView):
 class ProjectHomeView(LoginRequiredMixin, TemplateView):
     template_name = 'projects/start.html'
 
+class TestHoleList(LoginRequiredMixin, DetailView):
+    template_name = 'projects/testhole_list.html'
+    model = Project
+    pk_url_kwarg = 'project'
 
-class DataPointDetailView(LoginRequiredMixin, DetailView):
-    model = DataPoint
-
-    def get_queryset(self):
-        return DataPoint.objects.filter(project_id=self.kwargs['project'])
-    
+class InstrumentList(LoginRequiredMixin, DetailView):
+    template_name = 'projects/instrument_list.html'
+    model = Project
+    pk_url_kwarg = 'project'
