@@ -85,4 +85,3 @@ class TestHoleDetailView(LoginRequiredMixin, DetailView):
         testhole = DataPoint.objects.get(pk=self.kwargs['testhole'])
         context['testhole'] = testhole
         return context
-
