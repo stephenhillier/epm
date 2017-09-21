@@ -47,26 +47,11 @@ class InstrumentList(LoginRequiredMixin, DetailView):
     pk_url_kwarg = 'project'
 
 
-class TestHoleList(LoginRequiredMixin, DetailView):
-    template_name = 'projects/testhole_list.html'
-    model = Project
-    pk_url_kwarg = 'project'
-
-
-class TestHoleDetailView(LoginRequiredMixin, DetailView):
-    template_name = 'projects/testhole_detail.html'
-    model = Project
-    pk_url_kwarg = 'project'
-
-    # Add requested testhole to context:
-    # Get DataPoint object with pk given by url kwarg 'testhole', add it to context
-    def get_context_data(self, **kwargs):
-        context = super(TestHoleDetailView, self).get_context_data(**kwargs)
-        testhole = DataPoint.objects.get(pk=self.kwargs['testhole'])
-        context['testhole'] = testhole
-        return context
-
 class InstrumentDetailView(LoginRequiredMixin, DetailView):
+    """
+    Instrument detail view
+    - Expects <project> and <instrument> in url kwargs
+    """
     template_name = 'projects/instrument_detail.html'
     model = Project
     pk_url_kwarg = 'project'
@@ -77,3 +62,27 @@ class InstrumentDetailView(LoginRequiredMixin, DetailView):
         instrument = DataPoint.objects.get(pk=self.kwargs['instrument'])
         context['instrument'] = instrument
         return context
+
+
+class TestHoleList(LoginRequiredMixin, DetailView):
+    template_name = 'projects/testhole_list.html'
+    model = Project
+    pk_url_kwarg = 'project'
+
+
+class TestHoleDetailView(LoginRequiredMixin, DetailView):
+    """
+    Testhole detail view
+    - Expects <project> and <testhole> in url kwargs
+    """
+    template_name = 'projects/testhole_detail.html'
+    model = Project
+    pk_url_kwarg = 'project'
+
+    # Add requested testhole to context:
+    def get_context_data(self, **kwargs):
+        context = super(TestHoleDetailView, self).get_context_data(**kwargs)
+        testhole = DataPoint.objects.get(pk=self.kwargs['testhole'])
+        context['testhole'] = testhole
+        return context
+
