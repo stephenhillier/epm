@@ -109,7 +109,7 @@
                     
                         {% for obj in object.datapoints.all %}
                         marker = new L.marker([{{ obj.location.y }},{{ obj.location.x }}])
-                                    .bindPopup("{{ obj.project }}<br>{{ obj.name }} ({{ obj.get_data_type_display }})")
+                                    .bindPopup("{{ obj.name }}<br>{% for layer in obj.get_tooltip %}{{ layer }}<br>{% empty %} {% endfor %}")
                                     .addTo(map);
                                     
                         {% endfor %}

@@ -4,9 +4,9 @@ from django.core.urlresolvers import reverse
 
 
 class Project(models.Model):
-    '''
+    """
     Represents a project for a client. Parent model for all project related data/objects.
-    '''
+    """
     pm = models.ForeignKey(settings.AUTH_USER_MODEL,
                            related_name='projects',
                            on_delete=models.CASCADE)
@@ -15,8 +15,12 @@ class Project(models.Model):
     location = models.CharField(max_length=100)
     client = models.CharField(max_length=50)
 
+    
     @property
     def project(self):
+    """
+    Property self.project returns PK so both parent and related models have object.project available
+    """
         return self.id
 
     # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
@@ -26,14 +30,21 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('project-detail', kwargs={'project': self.id})
 
+    
     def get_testholes(self):
+    """
+    Iterable list of all testhole objects
+    """
         return self.datapoints.filter(data_type='TH')
 
     def get_instruments(self):
+    """
+    Iterable list of all non-testhole objects (e.g. all instruments)
+    """
         return self.datapoints.exclude(data_type='TH')
 
 class DataPoint(models.Model):
-    '''
+    """
     Data or test location. Parent model for a variety of data types
     e.g. test hole data or piezometer data.
 
@@ -46,7 +57,7 @@ class DataPoint(models.Model):
     -Test pits
     -Test holes
     -Sampling points (stockpile, crusher etc.)
-    '''
+    """
 
     # DataPoint instances must be one of the following types.
     # Related data will depend on the type of DataPoint
@@ -88,17 +99,38 @@ class DataPoint(models.Model):
     def __str__(self):
         return self.name
 
+    def get_tooltip(self):
+        """
+        Tooltip used for map markers. Returns soil strata sequence for boreholes. For other datapoints, TBD
+        Returns a list that the HTML template can iterate over.
+        """
+
+        # If object is a borehole, return all related SoilLayer instances as a soil unit sequence
+        if self.data_type == 'TH':
+            sequence = []
+            for layer in self.soil_layers.all():
+                sequence.append(str(layer))
+
+            # Append an "End of hole" layer, but first make sure there is at least one soil layer instance
+            if self.soil_layers.last() != None:
+                sequence.append(str(round(self.soil_layers.last().depth_to, 1)) + ' m: end of hole')
+            return sequence
+
+        # For all other DataPoints (e.g., instruments), simply return the type of instrument for the tooltip
+        else:
+            tooltip = [self.get_data_type_display,]
+            return tooltip
+
 
 class SoilLayer(models.Model):
-    '''
+    """
     Soil layers with visual descriptions and USCS classifications.
 
     - Each SoilLayer instance attaches to a "testhole" type DataPoint instance
     - Subsequent layers should be continuous (however, this is not enforced).
     - This model doesn't directly include lab tests, although test results may determine
     the USCS classification for layers. Lab tests are associated with samples.
-
-    '''
+    """
  
     # abbreviations from Unified Soil Classification System:
     USCS_CHOICES = (
@@ -126,6 +158,12 @@ class SoilLayer(models.Model):
     uscs = models.CharField(max_length=4, choices=USCS_CHOICES)
     description = models.TextField(blank=True, null=True)
 
+    class Meta:
+        ordering = ['depth_from']
+    
+    def __str__(self):
+        return str(round(self.depth_from,1)) + ' m: ' + self.get_uscs_display()
+
 
 # These models have been replaced by DataPoint:
 class Borehole(models.Model):
@@ -136,7 +174,7 @@ class Borehole(models.Model):
     logged_by = models.CharField(max_length=50)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -153,8 +191,8 @@ class Instrument(models.Model):
     instrument_type = models.CharField(max_length=2, choices=INSTRUMENT_TYPE_CHOICES)
     location = models.PointField(srid=4326)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["name"]
+
+    def __str__(self):
+        return self.name
