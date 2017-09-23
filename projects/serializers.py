@@ -1,22 +1,32 @@
 from rest_framework import serializers
-from projects.models import Project, DataPoint
+from projects.models import Project, DataPoint, SoilLayer
 from django.contrib.auth.models import User
+
+
+class SoilLayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SoilLayer
+        datapoint = serializers.ReadOnlyField()
+        fields = ('id', 'datapoint', 'depth_from', 'depth_to', 'get_uscs_display',)
+
 
 class DataPointSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField()
+    project = serializers.ReadOnlyField()
+    soil_layers = SoilLayerSerializer(many=True, read_only=True)
 
     class Meta:
         model = DataPoint
-        fields = ('id', 'project', 'data_type', 'date', 'number', 'field_tech', 'location', 'name')
+        fields = ('id', 'project', 'data_type', 'date', 'number', 'field_tech', 'location', 'name', 'soil_layers')
+
 
 class ProjectSerializer(serializers.ModelSerializer):
     datapoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    
     pm = serializers.ReadOnlyField(source='pm.username')
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'pm', 'location', 'client', 'boreholes', 'instruments', 'datapoints')
+        fields = ('id', 'name', 'pm', 'location', 'client', 'datapoints')
 
 
 class UserSerializer(serializers.ModelSerializer):
