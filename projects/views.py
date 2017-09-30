@@ -35,5 +35,5 @@ class APISoilLayerViewSet(viewsets.ModelViewSet):
         serializer.save(datapoint_id=self.kwargs['datapoint'])
 
 
-class ProjectsHomeView(LoginRequiredMixin, views.TemplateView):
-    template = "projects/base.html"
+class ProjectsHomeView(LoginRequiredMixin, TemplateView):
+    template_name = "projects/home.html"
