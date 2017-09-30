@@ -30,7 +30,7 @@
                                 {% for testhole in object.get_testholes %}
                                     <tr>
                                         <td>
-                                        <a href="{% url 'testhole-detail' project=object.project testhole=testhole.id %}">
+                                        <a href="{% url 'testhole-detail' project=object.project datapoint=testhole.id %}">
                                             {{ testhole.name }}
                                         </a>
                                         </td>
