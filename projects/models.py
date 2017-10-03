@@ -7,6 +7,7 @@ class Project(models.Model):
     """
     Represents a project for a client. Parent model for all project related data/objects.
     """
+
     pm = models.ForeignKey(settings.AUTH_USER_MODEL,
                            related_name='projects',
                            on_delete=models.PROTECT)
@@ -21,6 +22,14 @@ class Project(models.Model):
         Property self.project returns PK so both parent and related models have object.project available
         """
         return self.id
+
+    @property    
+    def xpoint(self):
+        return self.datapoints.first().location.x
+
+    @property    
+    def ypoint(self):
+        return self.datapoints.first().location.y
 
     # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
     def __str__(self):

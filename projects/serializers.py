@@ -12,21 +12,23 @@ class SoilLayerSerializer(serializers.ModelSerializer):
 
 class DataPointSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField()
-    project = serializers.ReadOnlyField()
+    project_id = serializers.ReadOnlyField()
     soil_layers = SoilLayerSerializer(many=True, read_only=True)
 
     class Meta:
         model = DataPoint
-        fields = ('id', 'project', 'data_type', 'date', 'number', 'field_tech', 'location', 'name', 'soil_layers')
+        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'location', 'name', 'soil_layers')
 
 
 class ProjectSerializer(serializers.ModelSerializer):
     datapoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     pm = serializers.ReadOnlyField(source='pm.username')
+    xpoint = serializers.ReadOnlyField()
+    ypoint = serializers.ReadOnlyField()
 
     class Meta:
         model = Project
-        fields = ('id', 'name', 'pm', 'location', 'client', 'datapoints')
+        fields = ('id', 'number', 'name', 'pm', 'location', 'client', 'datapoints', 'xpoint', 'ypoint')
 
 
 class UserSerializer(serializers.ModelSerializer):

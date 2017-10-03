@@ -1,2 +1,14 @@
 /** Stylus Styles */
-@import '../../node_modules/vuetify/src/stylus/main'
+@require '../../node_modules/vuetify/src/stylus/settings/_colors'
+
+$theme := {
+  primary: #34495e
+  accent: #2980b9
+  secondary: #27ae60
+  info: #fff
+  warning: $amber.darken-2
+  error: $red.accent-4
+  success: $green.lighten-2
+}
+ 
+@require '../../node_modules/vuetify/src/stylus/main'
