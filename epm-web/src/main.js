@@ -6,6 +6,7 @@ import './stylus/main.styl'
 import App from './App'
 import router from './router'
 import Vue2Leaflet from 'vue2-leaflet'
+import { store } from './store'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
@@ -17,6 +18,7 @@ Vue.component('v-marker', Vue2Leaflet.Marker)
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

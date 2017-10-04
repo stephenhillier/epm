@@ -1,33 +1,83 @@
 <template>
   <v-container>
-      <v-layout row wrap>
-        <v-flex xs12>
+      <v-layout row wrap class="mb-3">
+        <v-flex xs12 md10>
             <v-card>
-                <v-card-title dark class='primary info--text'>Projects:</v-card-title>
-                <v-card-text>
+                <v-card-title dense class='subheader primary info--text'> 
+                  All projects:
+                </v-card-title>
+                <v-card-title>
+                  <v-chip outline class="secondary secondary--text">
+                    <v-icon left class="secondary--text">lightbulb_outline</v-icon>
+                    Tip: try sorting or searching by project name, number, client, or location!</v-chip>
+                  <v-spacer></v-spacer>
+                  <v-text-field
+                    prepend-icon="search"
+                    label="Search"
+                    v-model="search"
+                    hide-details
+                  ></v-text-field>
+                  </v-card-title>
                 <v-data-table
                     v-bind:headers='headers'
-                    :items='items'
-                    hide-actions
+                    v-bind:items='projects'
+                    v-bind:search='search'
+                    v-bind:pagination.sync="pagination"
                     class='elevation-1'>
                 <template slot='items' scope='props'>
-                    <td>{{ props.item.name }}</td>
-                    <td class='text-xs-right'>{{ props.item.number }}</td>
-                    <td class='text-xs-right'>{{ props.item.location }}</td>
-                    <td class='text-xs-right'>{{ props.item.pm }}</td>
-                    <td class='text-xs-right'>{{ props.item.client }}</td>
+                    <td class='accent--text'>{{ props.item.name }}</td>
+                    <td class='text-xs-right grey--text text--darken-1'>{{ props.item.number }}</td>
+                    <td class='text-xs-right grey--text text--darken-1'>{{ props.item.location }}</td>
+                    <td class='text-xs-right grey--text text--darken-1'>{{ props.item.pm }}</td>
+                    <td class='text-xs-right grey--text text--darken-1'>{{ props.item.client }}</td>
                 </template>
-                </v-data-table></v-card-text>
+                </v-data-table></v-card-title>
             </v-card>    
+        </v-flex>
+      </v-layout>
+      <v-layout row wrap>
+        <v-flex xs12 md10>
+          <v-card>
+            <div>
+              <v-map style="height:28rem" :zoom=11 :center="[48.413220, -123.419482]">
+                <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
+                  <v-marker 
+                  v-for="project in projects"
+                  v-if="project.latlng"
+                  :key="project.id"
+                  :lat-lng="project.latlng"
+                  ></v-marker>
+              </v-map>
+            </div>
+          </v-card>
         </v-flex>
       </v-layout>
   </v-container>
 </template>
 
 <script>
+  import L from 'leaflet'
+
+  delete L.Icon.Default.prototype._getIconUrl
+  L.Icon.Default.imagePath = ''
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  })
+
   export default {
+    computed: {
+      projects () {
+        return this.$store.getters.myProjects
+      }
+    },
     data () {
       return {
+        pagination: {
+          sortBy: 'name'
+        },
+        search: '',
         headers: [
           {
             text: 'Project',
@@ -39,76 +89,6 @@
           { text: 'Location', value: 'location' },
           { text: 'PM', value: 'pm' },
           { text: 'Client', value: 'client' }
-        ],
-        items: [
-          {
-            'id': 1,
-            'number': '2017-001',
-            'name': 'Steve and Vivian\'s Mansion',
-            'pm': 'steve',
-            'location': 'View Royal, BC',
-            'client': 'Viracal Construction',
-            'datapoints': [
-              4,
-              5
-            ],
-            'xpoint': -123.434844,
-            'ypoint': 48.448276
-          },
-          {
-            'id': 2,
-            'number': '2017-002',
-            'name': 'Esquimalt Towers',
-            'pm': 'steve',
-            'location': 'Esquimalt, BC',
-            'client': 'Viracal Construction',
-            'datapoints': [
-              7
-            ],
-            'xpoint': -123.434844,
-            'ypoint': 48.450276
-          },
-          {
-            'id': 3,
-            'number': '2017-003',
-            'name': 'James Bay Parkway',
-            'pm': 'steve',
-            'location': 'Victoria, BC',
-            'client': 'Viracal Construction',
-            'datapoints': [
-              8,
-              9
-            ],
-            'xpoint': -123.38069208767634,
-            'ypoint': 48.41932851960125
-          },
-          {
-            'id': 4,
-            'number': '2017-004',
-            'name': 'Saanich Mall',
-            'pm': 'steve',
-            'location': 'Saanich, BC',
-            'client': 'Steve Industries',
-            'datapoints': []
-          },
-          {
-            'id': 5,
-            'number': '2017-005',
-            'name': 'Sidney Sewer Replacement',
-            'pm': 'steve',
-            'location': 'Sidney, BC',
-            'client': 'Steve Industries',
-            'datapoints': []
-          },
-          {
-            'id': 6,
-            'number': '2017-006',
-            'name': 'Rat Hill Highway',
-            'pm': 'steve',
-            'location': 'Yellowknife, NT',
-            'client': 'Steve Industries',
-            'datapoints': []
-          }
         ]
       }
     }

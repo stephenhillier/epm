@@ -6,7 +6,7 @@
     enable-resize-watcher
     height="100%"
     v-model="drawer">
-      <v-list>
+      <v-list class="mt-3">
         <v-list-tile v-for="item in menuItems" :key="item.title" router :to="item.link">
           <v-list-tile-action>
             <v-icon primary>
@@ -17,8 +17,13 @@
             <v-list-tile-title class="primary--text">{{ item.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        
       </v-list>
+      <v-list dense v-if="currentProject">
+        <v-subheader class="subheading accent--text">{{ currentProject.title }}</v-subheader>
+        <v-list-tile v-for="item in projectItems" :key="item.title">
+          <v-list-tile-content class="primary--text">{{ item.title }}</v-list-tile-content>
+        </v-list-tile>
+        </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed class="info">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -59,14 +64,26 @@
         ]
         if (this.projectSelected) {
           menuItems = [
-          { title: 'Home', icon: 'dashboard' },
-          { title: 'Change project', icon: 'view_list' }
+          { title: 'Home', icon: 'dashboard', link: '/' },
+          { title: 'Change project', icon: 'view_list', link: '/myprojects' }
           ]
         }
         return menuItems
       },
-      projectSelected () {
-        return false
+      currentProject () {
+        return this.$store.currentProject
+      },
+      projectItems () {
+        let projectItems = null
+        if (this.projectSelected) {
+          projectItems = [
+            { title: 'Project overview' },
+            { title: 'Boreholes' },
+            { title: 'Instrumentation' },
+            { title: 'Lab testing' }
+          ]
+        }
+        return projectItems
       }
     }
   }

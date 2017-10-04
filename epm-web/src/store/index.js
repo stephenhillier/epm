@@ -1,0 +1,90 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export const store = new Vuex.Store({
+  state: {
+    myProjects: [
+      {
+        'id': 1,
+        'number': '2017-001',
+        'name': 'Steve and Vivian\'s Mansion',
+        'pm': 'steve',
+        'location': 'View Royal, BC',
+        'client': 'Viracal Construction',
+        'datapoints': [
+          4,
+          5
+        ],
+        'latlng': [48.448276, -123.434844]
+      },
+      {
+        'id': 2,
+        'number': '2017-002',
+        'name': 'Esquimalt Towers',
+        'pm': 'steve',
+        'location': 'Esquimalt, BC',
+        'client': 'Viracal Construction',
+        'datapoints': [
+          7
+        ],
+        'latlng': [48.450276, -123.434844]
+      },
+      {
+        'id': 3,
+        'number': '2017-003',
+        'name': 'James Bay Parkway',
+        'pm': 'steve',
+        'location': 'Victoria, BC',
+        'client': 'Viracal Construction',
+        'datapoints': [
+          8,
+          9
+        ],
+        'latlng': [48.41932851960125, -123.38069208767634]
+      },
+      {
+        'id': 4,
+        'number': '2017-004',
+        'name': 'Saanich Mall',
+        'pm': 'steve',
+        'location': 'Saanich, BC',
+        'client': 'Steve Industries',
+        'datapoints': []
+      },
+      {
+        'id': 5,
+        'number': '2017-005',
+        'name': 'Sidney Sewer Replacement',
+        'pm': 'steve',
+        'location': 'Sidney, BC',
+        'client': 'Steve Industries',
+        'datapoints': []
+      },
+      {
+        'id': 6,
+        'number': '2017-006',
+        'name': 'Rat Hill Highway',
+        'pm': 'steve',
+        'location': 'Yellowknife, NT',
+        'client': 'Steve Industries',
+        'datapoints': []
+      }
+    ]
+  },
+  mutations: {},
+  actions: {},
+  getters: {
+    myProjects (state) {
+      return state.myProjects
+    },
+    currentProject (state) {
+      return (projectId) => {
+        return state.myProjects.find((project) => {
+          return project.id === projectId
+        })
+      }
+    }
+  }
+})

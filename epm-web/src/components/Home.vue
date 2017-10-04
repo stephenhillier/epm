@@ -18,9 +18,9 @@
                             <v-list-tile-title class="primary--text">
                               Review
                             </v-list-tile-title>
-                            <v-list-tile-subtitle class="grey--text text--darken-2">
+                            <v-list-tile-sub-title class="grey--text text--darken-2">
                               You have 6 new items to review.
-                            </v-list-tile-subtitle>
+                            </v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                         <v-list-tile avatar>
@@ -31,10 +31,9 @@
                             <v-list-tile-title class="primary--text">
                               New projects
                             </v-list-tile-title>
-                            <v-list-tile-subtitle class="grey--text text--darken-2">
+                            <v-list-tile-sub-title class="grey--text text--darken-2">
                               You've been added to 3 new projects.
-                            </v-list-tile-subtitle>
-
+                            </v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile> 
                       
