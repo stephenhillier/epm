@@ -9,6 +9,7 @@ class APIProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    ordering = ('number',)
 
     def perform_create(self, serializer):
         serializer.save(pm=self.request.user)
