@@ -1,5 +1,19 @@
 <template>
     <v-container>
+      <v-template>
+        <v-layout>
+          <v-flex xs12 md11 hidden-xs-only hidden-sm-only class="pa-2">
+            <v-card tile>
+          <v-parallax src="/static/projects/roundabout.jpg" height=250 md10>
+              <v-layout row><v-spacer></v-spacer></v-layout>
+              <v-layout row align-center justify-center class="mt-5">
+                <v-spacer></v-spacer>
+                <img src="/static/projects/epm_outline_w.png" height=100 class="mt-5">
+              </v-layout>
+            </v-parallax></v-card>
+          </v-flex>
+        </v-layout>
+        </v-template>
         <v-layout row wrap>
             <v-flex xs12 md8 class="pa-2">
                 <v-card>

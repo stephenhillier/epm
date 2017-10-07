@@ -48,7 +48,8 @@ export const store = new Vuex.Store({
               name: obj[item].name,
               pm: obj[item].pm,
               location: obj[item].location,
-              client: obj[item].client
+              client: obj[item].client,
+              latlng: obj[item].latlng
             })
           }
           commit('loadRetrievedProjects', projects)
@@ -96,7 +97,7 @@ export const store = new Vuex.Store({
       return state.currentProject
     },
     latestProjects (state) {
-      return state.myProjects.slice(0, 5)
+      return state.myProjects.slice(0, 4)
     }
   }
 })
