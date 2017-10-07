@@ -96,7 +96,7 @@ export const store = new Vuex.Store({
       return state.currentProject
     },
     latestProjects (state) {
-      return state.myProjects.slice(0, 2)
+      return state.myProjects.slice(0, 5)
     }
   }
 })

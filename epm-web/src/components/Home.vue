@@ -48,7 +48,7 @@
                 <v-card-text>
                     <v-list dense v-if="latestProjects">
                       <v-list-tile v-for="item in latestProjects" :key="item.id" router :to="'/myprojects/'+item.id">
-                        <v-list-tile-content class="primary--text">{{ item.name }}</v-list-tile-content>
+                        <v-list-tile-content class="primary--text">{{ item.number }} - {{ item.name }}</v-list-tile-content>
                       </v-list-tile>
                     </v-list>
                 </v-card-text>
@@ -66,7 +66,7 @@
         return 'Steve'
       },
       latestProjects () {
-        this.$store.getters.latestProjects
+        return this.$store.getters.latestProjects
       }
     },
     created () {
