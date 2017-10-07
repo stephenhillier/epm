@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout row wrap>
-            <v-flex xs12 md8>
+            <v-flex xs12 md8 class="pa-2">
                 <v-card>
                     <v-card-title dark class="primary info--text">
                         Welcome back, {{ user }}!
@@ -12,7 +12,7 @@
 
                         <v-list-tile avatar>
                           <v-list-tile-avatar>
-                            <v-icon primary>announcement</v-icon>
+                            <v-icon secondary>announcement</v-icon>
                           </v-list-tile-avatar>
                           <v-list-tile-content>
                             <v-list-tile-title class="primary--text">
@@ -25,7 +25,7 @@
                         </v-list-tile>
                         <v-list-tile avatar>
                           <v-list-tile-avatar>
-                            <v-icon primary>add_to_queue</v-icon>
+                            <v-icon secondary>add_to_queue</v-icon>
                           </v-list-tile-avatar>
                           <v-list-tile-content>
                             <v-list-tile-title class="primary--text">
@@ -40,7 +40,7 @@
                     </v-card-text>
                 </v-card>
             </v-flex>
-            <v-flex class="hidden-xs-only pl-4" v-if="latestProjects">
+            <v-flex md3 class="hidden-xs-only pa-2" v-if="latestProjects">
               <v-card>
                 <v-card-title dark class="primary info--text">
                   Latest projects:
@@ -51,6 +51,7 @@
                         <v-list-tile-content class="primary--text">{{ item.number }} - {{ item.name }}</v-list-tile-content>
                       </v-list-tile>
                     </v-list>
+                  <v-btn secondary to="/myprojects/">See all</v-btn>  
                 </v-card-text>
               </v-card>
             </v-flex>
