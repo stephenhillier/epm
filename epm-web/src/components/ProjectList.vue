@@ -7,10 +7,10 @@
                   All projects:
                 </v-card-title>
                 <v-card-title>
-                  <v-chip outline class="secondary secondary--text">
-                    <v-icon left class="secondary--text">lightbulb_outline</v-icon>
-                    Tip: try sorting or searching by project name, number, client, or location!</v-chip>
-                  <v-spacer></v-spacer>
+                  <v-btn flat secondary>
+                    <v-icon left class="secondary--text">create_new_folder</v-icon>
+                    New project</v-btn>
+                  <v-spacer class="hidden-xs-only"></v-spacer>
                   <v-text-field
                     prepend-icon="search"
                     label="Search"
@@ -25,13 +25,13 @@
                     v-bind:pagination.sync="pagination"
                     class='elevation-1'>
                 <template slot='items' scope='props'>
-                    <td class='accent--text'>{{ props.item.name }}</td>
+                    <router-link :to="'/myprojects/' + props.item.id" tag="td" class="accent--text"><a>{{ props.item.name }}</a></router-link>
                     <td class='text-xs-right grey--text text--darken-1'>{{ props.item.number }}</td>
                     <td class='text-xs-right grey--text text--darken-1'>{{ props.item.location }}</td>
                     <td class='text-xs-right grey--text text--darken-1'>{{ props.item.pm }}</td>
                     <td class='text-xs-right grey--text text--darken-1'>{{ props.item.client }}</td>
                 </template>
-                </v-data-table></v-card-title>
+                </v-data-table>
             </v-card>    
         </v-flex>
       </v-layout>
@@ -75,7 +75,7 @@
     data () {
       return {
         pagination: {
-          sortBy: 'name'
+          sortBy: 'number'
         },
         search: '',
         headers: [

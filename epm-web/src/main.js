@@ -7,8 +7,10 @@ import App from './App'
 import router from './router'
 import Vue2Leaflet from 'vue2-leaflet'
 import { store } from './store'
+import axios from 'axios'
 
 Vue.use(Vuetify)
+Vue.use(axios)
 Vue.config.productionTip = false
 Vue.component('v-map', Vue2Leaflet.Map)
 Vue.component('v-tilelayer', Vue2Leaflet.TileLayer)
@@ -20,5 +22,15 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  created () {
+    let token = document.querySelector('meta[name="csrf-token"]')
+    if (token) {
+      axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+      console.log(token.content)
+    } else {
+      console.log('CSRF token not found')
+    }
+    this.$store.dispatch('loadProjects')
+  }
 })

@@ -19,8 +19,8 @@
         </v-list-tile>
       </v-list>
       <v-list dense v-if="currentProject">
-        <v-subheader class="subheading accent--text">{{ currentProject.title }}</v-subheader>
-        <v-list-tile v-for="item in projectItems" :key="item.title">
+        <v-subheader class="subheading accent--text">{{ currentProject.name }}</v-subheader>
+        <v-list-tile v-for="item in projectItems" :key="item.title" router :to="item.link">
           <v-list-tile-content class="primary--text">{{ item.title }}</v-list-tile-content>
         </v-list-tile>
         </v-list>
@@ -28,7 +28,7 @@
     <v-toolbar fixed class="info">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title style="margin-bottom: -10px">
-        <img src="/static/epm.png" height="30" style="margin-bottom: -3px">
+        <img src="/static/projects/epm.png" height="30" style="margin-bottom: -3px">
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
@@ -62,22 +62,22 @@
           { title: 'Home', icon: 'dashboard', link: '/' },
           { title: 'Project list', icon: 'view_list', link: '/myprojects' }
         ]
-        if (this.projectSelected) {
+        if (this.currentProject) {
           menuItems = [
-          { title: 'Home', icon: 'dashboard', link: '/' },
+          { title: 'Back to home', icon: 'dashboard', link: '/' },
           { title: 'Change project', icon: 'view_list', link: '/myprojects' }
           ]
         }
         return menuItems
       },
       currentProject () {
-        return this.$store.currentProject
+        return this.$store.getters.currentProject
       },
       projectItems () {
         let projectItems = null
-        if (this.projectSelected) {
+        if (this.currentProject) {
           projectItems = [
-            { title: 'Project overview' },
+            { title: 'Project overview', link: '/myprojects/' + this.currentProject.id },
             { title: 'Boreholes' },
             { title: 'Instrumentation' },
             { title: 'Lab testing' }
