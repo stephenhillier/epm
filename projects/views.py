@@ -6,10 +6,9 @@ from projects.models import Project, DataPoint, SoilLayer, SoilSample
 from projects.serializers import ProjectSerializer, UserSerializer, DataPointSerializer, SoilLayerSerializer
 
 class APIProjectViewSet(viewsets.ModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.all().order_by('-number')
     serializer_class = ProjectSerializer
     permission_classes = (permissions.IsAuthenticated,)
-    ordering = ('number',)
 
     def perform_create(self, serializer):
         serializer.save(pm=self.request.user)
