@@ -24,12 +24,9 @@ class Project(models.Model):
         return self.id
 
     @property    
-    def xpoint(self):
-        return self.datapoints.first().location.x
+    def latlng(self):
 
-    @property    
-    def ypoint(self):
-        return self.datapoints.first().location.y
+        return [self.datapoints.first().location.y, self.datapoints.first().location.x]
 
     # combines project number and name e.g. "2017-001 - Highway 1 Upgrades, Victoria, BC"
     def __str__(self):

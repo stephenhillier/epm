@@ -23,12 +23,11 @@ class DataPointSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     datapoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     pm = serializers.ReadOnlyField(source='pm.username')
-    xpoint = serializers.ReadOnlyField()
-    ypoint = serializers.ReadOnlyField()
+    latlng = serializers.ReadOnlyField()
 
     class Meta:
         model = Project
-        fields = ('id', 'number', 'name', 'pm', 'location', 'client', 'datapoints', 'xpoint', 'ypoint')
+        fields = ('id', 'number', 'name', 'pm', 'location', 'client', 'datapoints', 'latlng')
 
 
 class UserSerializer(serializers.ModelSerializer):
