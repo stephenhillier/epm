@@ -7,7 +7,7 @@
                   All projects:
                 </v-card-title>
                 <v-card-title>
-                  <v-btn flat secondary>
+                  <v-btn flat secondary router to="/newproject">
                     <v-icon left class="secondary--text">create_new_folder</v-icon>
                     New project</v-btn>
                   <v-spacer class="hidden-xs-only"></v-spacer>

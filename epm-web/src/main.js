@@ -26,7 +26,7 @@ new Vue({
   created () {
     let token = document.querySelector('meta[name="csrf-token"]')
     if (token) {
-      axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+      axios.defaults.headers.common['X-CSRFToken'] = token.content
       console.log(token.content)
     } else {
       console.log('CSRF token not found')

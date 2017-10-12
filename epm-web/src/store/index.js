@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../router'
 
 const api = 'http://localhost:8000/projects/api'
 
@@ -11,7 +12,8 @@ export const store = new Vuex.Store({
     loading: false,
     user: null,
     myProjects: [],
-    currentProject: null
+    currentProject: null,
+    message: null
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -31,6 +33,12 @@ export const store = new Vuex.Store({
     },
     setCurrentProject (state, payload) {
       state.currentProject = payload
+    },
+    setMessage (state, payload) {
+      state.message = payload
+    },
+    clearMessage (state) {
+      state.message = null
     }
   },
   actions: {
@@ -87,6 +95,29 @@ export const store = new Vuex.Store({
     },
     clearCurrentProject ({commit}) {
       commit('setCurrentProject', null)
+    },
+    addNewProject ({commit}, payload) {
+      commit('setLoading', true)
+      const project = {
+        name: payload.name,
+        number: payload.number,
+        client: payload.client,
+        location: payload.location
+      }
+      axios.post(api + '/projects/', project)
+      .then(
+        response => {
+          commit('setLoading', false)
+          store.dispatch('loadProjects')
+          router.push('/myprojects')
+        })
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
     }
   },
   getters: {

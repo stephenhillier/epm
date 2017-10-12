@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import ProjectList from '@/components/ProjectList'
 import ProjectDetail from '@/components/ProjectDetail'
+import ProjectCreate from '@/components/ProjectCreate'
 
 Vue.use(Router)
 
@@ -15,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'EarthworksPM',
       component: Home
+    },
+    {
+      path: '/newproject',
+      name: 'ProjectCreate',
+      component: ProjectCreate
     },
     {
       path: '/myprojects/:id',
