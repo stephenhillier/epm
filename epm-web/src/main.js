@@ -15,6 +15,8 @@ Vue.config.productionTip = false
 Vue.component('v-map', Vue2Leaflet.Map)
 Vue.component('v-tilelayer', Vue2Leaflet.TileLayer)
 Vue.component('v-marker', Vue2Leaflet.Marker)
+Vue.component('v-tooltip', Vue2Leaflet.Tooltip)
+Vue.component('v-popup', Vue2Leaflet.Popup)
 
 /* eslint-disable no-new */
 new Vue({
@@ -27,10 +29,11 @@ new Vue({
     let token = document.querySelector('meta[name="csrf-token"]')
     if (token) {
       axios.defaults.headers.common['X-CSRFToken'] = token.content
-      console.log(token.content)
     } else {
       console.log('CSRF token not found')
     }
     this.$store.dispatch('loadProjects')
+    let username = document.querySelector('meta[name="user"]').content
+    this.$store.dispatch('changeUser', username)
   }
 })

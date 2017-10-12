@@ -13,7 +13,8 @@ export const store = new Vuex.Store({
     user: null,
     myProjects: [],
     currentProject: null,
-    message: null
+    message: null,
+    projectData: null
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -21,6 +22,9 @@ export const store = new Vuex.Store({
     },
     setUser (state, payload) {
       state.user = payload
+    },
+    setProjectData (state, payload) {
+      state.projectData = payload
     },
     setLoading (state, payload) {
       state.loading = payload
@@ -73,8 +77,8 @@ export const store = new Vuex.Store({
     loadCurrentProject ({commit}, projectId) {
       commit('setLoading', true)
       axios.get(api + '/projects/' + projectId + '/')
-        .then((data) => {
-          const obj = data.data
+        .then((response) => {
+          const obj = response.data
           const projectData = {
             id: obj.id,
             number: obj.number,
@@ -92,6 +96,24 @@ export const store = new Vuex.Store({
           console.log(error)
           commit('setLoading', false)
         })
+    },
+    loadProjectData ({commit}, projectId) {
+      commit('setLoading', true)
+      console.log(api + '/projects/' + projectId + '/data/')
+      axios.get(api + '/projects/' + projectId + '/data/')
+      .then(
+        response => {
+          const projectData = response.data
+          commit('setLoading', false)
+          commit('setProjectData', projectData)
+        })
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
     },
     clearCurrentProject ({commit}) {
       commit('setCurrentProject', null)
@@ -118,6 +140,9 @@ export const store = new Vuex.Store({
           console.log(error)
         }
       )
+    },
+    changeUser ({commit}, payload) {
+      commit('setUser', payload)
     }
   },
   getters: {
@@ -129,6 +154,12 @@ export const store = new Vuex.Store({
     },
     latestProjects (state) {
       return state.myProjects.slice(0, 4)
+    },
+    projectData (state) {
+      return state.projectData
+    },
+    getUser (state) {
+      return state.user
     }
   }
 })

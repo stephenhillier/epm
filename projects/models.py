@@ -101,6 +101,10 @@ class DataPoint(models.Model):
     def name(self):
         return self.data_type + str(self.date.year)[-2:] + '-' + str(self.number)
 
+    @property
+    def latlng(self):
+        return [self.location.y, self.location.x]
+
     def __str__(self):
         return self.name
 

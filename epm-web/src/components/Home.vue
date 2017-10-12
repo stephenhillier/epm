@@ -1,6 +1,5 @@
 <template>
     <v-container>
-      <v-template>
         <v-layout>
           <v-flex xs12 md11 hidden-xs-only hidden-sm-only class="pa-2">
             <v-card tile>
@@ -13,7 +12,6 @@
             </v-parallax></v-card>
           </v-flex>
         </v-layout>
-        </v-template>
         <v-layout row wrap>
             <v-flex xs12 md8 class="pa-2">
                 <v-card>
@@ -78,7 +76,7 @@
   export default {
     computed: {
       user () {
-        return 'Steve'
+        return this.$store.getters.getUser
       },
       latestProjects () {
         return this.$store.getters.latestProjects

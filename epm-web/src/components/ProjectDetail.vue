@@ -7,7 +7,7 @@
                   Project overview:&nbsp;<div v-if="project">{{ project.name }}</div>
                 </v-card-title>
                 <v-card-text>
-                  <v-layout row wrap>
+                  <v-layout v-if="projectSummary" row wrap>
                       <v-flex md5 xs12>
                         <div v-for="item in projectSummary" :key="item.title">
                           <v-layout row wrap>   
@@ -23,11 +23,12 @@
                             <v-map style="height:28rem" :zoom=11 :center="[48.413220, -123.419482]">
                               <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
                                 <v-marker 
-                                v-for="project in projects"
-                                v-if="project.latlng"
-                                :key="project.id"
-                                :lat-lng="project.latlng"
-                                ></v-marker>
+                                v-for="point in projectData"
+                                v-if="point.latlng"
+                                :key="point.id"
+                                :lat-lng="point.latlng">
+                                  <v-tooltip :content="point.name"></v-tooltip>
+                                </v-marker>
                             </v-map>
 
                         </v-card>
@@ -57,6 +58,9 @@
         return this.$store.getters.currentProject
       },
       projectSummary () {
+        if (!this.project) {
+          return
+        }
         let projectSummary = [
           { title: 'Project name: ', value: this.project.name },
           { title: 'Project number: ', value: this.project.number },
@@ -65,10 +69,14 @@
           { title: 'Project manager: ', value: this.project.pm }
         ]
         return projectSummary
+      },
+      projectData () {
+        return this.$store.getters.projectData
       }
     },
     created () {
       this.$store.dispatch('loadCurrentProject', this.$route.params.id)
+      this.$store.dispatch('loadProjectData', this.$route.params.id)
     }
   }
 </script>

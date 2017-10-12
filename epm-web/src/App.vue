@@ -35,8 +35,8 @@
         <v-btn flat class="primary--text">
           <v-icon>person</v-icon>
         </v-btn>
-        <v-btn flat class="primary--text">
-          <v-icon>exit_to_app</v-icon>
+        <v-btn flat class="primary--text" href="/accounts/logout/">
+          <v-icon>exit_to_app</v-icon></a>
         </v-btn>
       </v-toolbar-items>
 
