@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import ProjectList from '@/components/ProjectList'
 import ProjectDetail from '@/components/ProjectDetail'
 import ProjectCreate from '@/components/ProjectCreate'
+import DatapointCreate from '@/components/datapoints/DatapointCreate'
 
 Vue.use(Router)
 
@@ -21,6 +22,11 @@ export default new Router({
       path: '/newproject',
       name: 'ProjectCreate',
       component: ProjectCreate
+    },
+    {
+      path: '/myprojects/:id/data/add',
+      name: 'DatapointCreate',
+      component: DatapointCreate
     },
     {
       path: '/myprojects/:id',

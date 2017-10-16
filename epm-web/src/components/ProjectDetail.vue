@@ -16,6 +16,10 @@
                           </v-layout>
                           <v-divider></v-divider>
                         </div>
+                        <v-btn flat secondary router :to="{ name: 'DatapointCreate', params: { id: project.id } }">
+                          <v-icon left class="secondary--text">note_add</v-icon>
+                          Add new datapoint
+                        </v-btn>
                       </v-flex>
                       <v-flex xs12 md6 offset-md1>
                         <v-card>

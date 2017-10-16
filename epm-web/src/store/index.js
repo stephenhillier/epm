@@ -14,7 +14,8 @@ export const store = new Vuex.Store({
     myProjects: [],
     currentProject: null,
     message: null,
-    projectData: null
+    projectData: null,
+    datatypeOptions: null
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -43,6 +44,9 @@ export const store = new Vuex.Store({
     },
     clearMessage (state) {
       state.message = null
+    },
+    setDatatypeOptions (state, payload) {
+      state.datatypeOptions = payload
     }
   },
   actions: {
@@ -143,6 +147,33 @@ export const store = new Vuex.Store({
     },
     changeUser ({commit}, payload) {
       commit('setUser', payload)
+    },
+    loadDatatypeOptions ({commit}, projectId) {
+      commit('setLoading', true)
+      axios.options(api + '/projects/' + projectId + /data/)
+      .then(
+        response => {
+          console.log(response)
+          const datatypes = response.data.actions.POST.data_type.choices
+          const datatypeOptions = []
+          for (let item in datatypes) {
+            console.log('adding to datatypeoptions')
+            datatypeOptions.push({
+              value: item.value,
+              display: item.display_name
+            })
+          }
+          commit('setLoading', false)
+          commit('setDatatypeOptions', datatypeOptions)
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
     }
   },
   getters: {
@@ -160,6 +191,9 @@ export const store = new Vuex.Store({
     },
     getUser (state) {
       return state.user
+    },
+    getDatatypeOptions (state) {
+      return state.datatypeOptions
     }
   }
 })
