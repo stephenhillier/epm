@@ -40,6 +40,7 @@
                                       single-line
                                       item-text="display"
                                       item-value="value"
+                                      return-object
                                     ></v-select>
                                   </v-flex>
                               </v-layout>
@@ -83,7 +84,9 @@
                                       id="number"
                                       v-model="number"
                                       :prefix="datapointPrefix"
-                                      required></v-text-field>
+                                      required
+                                      placeholder="01"
+                                      focus></v-text-field>
                                   </v-flex>
                               </v-layout>
                               <v-layout row>
@@ -165,15 +168,14 @@
     data () {
       return {
         datatype: { display: 'Test hole', value: 'TH' },
-        date: '',
+        date: '2017-01-01',
         number: '',
         fieldTech: '',
         lat: '',
         lng: '',
         mapCenter: [48.413220, -123.419482],
         menu: false,
-        modal: false,
-        datatypeOptions: [{ display: 'no data yet', value: 'TH' }]
+        modal: false
       }
     },
     computed: {
@@ -192,8 +194,7 @@
         }
       },
       latLng () {
-        const latlng = [this.lat, this.lng]
-        return latlng
+        return [this.lat, this.lng]
       },
       latLngAvailable () {
         const latIsNumber = (this.latLng[0] !== '')
@@ -202,8 +203,16 @@
         const lngInRange = (this.latLng[1] <= 180) && (this.latLng[1] >= -180)
         return latIsNumber && lngIsNumber && latInRange && lngInRange
       },
+      datatypeOptions () {
+        const types = this.$store.getters.getDatatypeOptions
+        if (types === null) {
+          return [{ display: 'no data yet', value: 'TH' }]
+        } else {
+          return types
+        }
+      },
       datapointPrefix () {
-        return this.datatype.value + this.date.slice(2, 4 + '-')
+        return this.datatype.value + this.date.slice(2, 4) + '-'
       }
     },
     methods: {
@@ -211,7 +220,7 @@
         if (!this.formIsValid) {
           return
         }
-        const dataPoint = {
+        const datapoint = {
           project: this.project.id,
           datatype: this.datatype,
           date: this.date,
@@ -219,8 +228,8 @@
           field_tech: this.fieldTech,
           latlng: this.latLng
         }
-        console.log(dataPoint)
-        // this.$store.dispatch('addDatapoint', projectData)
+        console.log(datapoint)
+        this.$store.dispatch('addDatapoint', datapoint)
       }
     }
   }

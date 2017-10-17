@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     currentProject: null,
     message: null,
     projectData: null,
-    datatypeOptions: null
+    datatypeOptions: []
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -155,16 +155,16 @@ export const store = new Vuex.Store({
         response => {
           console.log(response)
           const datatypes = response.data.actions.POST.data_type.choices
-          const datatypeOptions = []
+          const options = []
           for (let item in datatypes) {
-            console.log('adding to datatypeoptions')
-            datatypeOptions.push({
-              value: item.value,
-              display: item.display_name
+            options.push({
+              value: datatypes[item].value,
+              display: datatypes[item].display_name
             })
           }
           commit('setLoading', false)
-          commit('setDatatypeOptions', datatypeOptions)
+          commit('setDatatypeOptions', options)
+          console.log(options)
         }
       )
       .catch(
@@ -172,6 +172,17 @@ export const store = new Vuex.Store({
           commit('setLoading', false)
           commit('setError', error)
           console.log(error)
+        }
+      )
+    },
+    addDatapoint ({commit}, payload) {
+      commit('setLoading', true)
+      axios.post(api + /projects/ + payload.id + /data/)
+      .then(
+        response => {
+          commit('setLoading', false)
+          store.dispatch('loadProjectData')
+          router.push({name: 'ProjectDetail', params: { id: payload.id }})
         }
       )
     }
