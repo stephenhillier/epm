@@ -221,12 +221,15 @@
           return
         }
         const datapoint = {
-          project: this.project.id,
-          datatype: this.datatype,
+          project_id: this.project.id,
+          data_type: this.datatype.value,
           date: this.date,
           number: this.number,
           field_tech: this.fieldTech,
-          latlng: this.latLng
+          location: {
+            latitude: this.lat,
+            longitude: this.lng
+          }
         }
         console.log(datapoint)
         this.$store.dispatch('addDatapoint', datapoint)

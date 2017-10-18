@@ -177,12 +177,17 @@ export const store = new Vuex.Store({
     },
     addDatapoint ({commit}, payload) {
       commit('setLoading', true)
-      axios.post(api + /projects/ + payload.id + /data/)
+      axios.post(api + /projects/ + payload.project_id + /data/, payload)
       .then(
         response => {
           commit('setLoading', false)
           store.dispatch('loadProjectData')
-          router.push({name: 'ProjectDetail', params: { id: payload.id }})
+          router.push({name: 'ProjectDetail', params: { id: payload.project_id }})
+        }
+      )
+      .catch(
+        error => {
+          console.log(error)
         }
       )
     }

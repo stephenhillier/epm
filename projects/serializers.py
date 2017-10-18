@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from projects.models import Project, DataPoint, SoilLayer
 from django.contrib.auth.models import User
+from drf_extra_fields.geo_fields import PointField
 
 
 class SoilLayerSerializer(serializers.ModelSerializer):
@@ -15,10 +16,11 @@ class DataPointSerializer(serializers.ModelSerializer):
     project_id = serializers.ReadOnlyField()
     soil_layers = SoilLayerSerializer(many=True, read_only=True)
     latlng = serializers.ReadOnlyField()
+    location = PointField()
 
     class Meta:
         model = DataPoint
-        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'latlng', 'name', 'soil_layers')
+        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'location', 'latlng', 'name', 'soil_layers')
 
 
 class ProjectSerializer(serializers.ModelSerializer):
