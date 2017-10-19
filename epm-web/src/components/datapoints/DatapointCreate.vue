@@ -173,7 +173,7 @@
     },
     data () {
       return {
-        datatype: { display: 'Borehole', value: 'TH' },
+        datatype: { display: 'Borehole', value: 'BH' },
         date: '2017-01-01',
         number: '',
         fieldTech: '',
@@ -212,7 +212,7 @@
       datatypeOptions () {
         const types = this.$store.getters.getDatatypeOptions
         if (types === null) {
-          return [{ display: 'no data yet', value: 'TH' }]
+          return [{ display: 'no data yet', value: 'BH' }]
         } else {
           return types
         }

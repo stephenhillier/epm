@@ -1,23 +1,27 @@
 <template>
   <v-container>
-      <v-layout row wrap class="mb-3">
+      <v-layout row wrap mb-2>
+        <v-flex xs12 md10>
+          <v-card>
+            <div>
+              <v-map style="height:16rem" :zoom=11 :center="[48.413220, -123.419482]">
+                <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
+                  <v-marker 
+                  v-for="project in projects"
+                  v-if="project.latlng"
+                  :key="project.id"
+                  :lat-lng="project.latlng"
+                  ></v-marker>
+              </v-map>
+            </div>
+          </v-card>
+        </v-flex>
+      </v-layout>
+
+      <v-layout row wrap mb-3>
         <v-flex xs12 md10>
             <v-card>
-                <v-card-title dense class='subheader primary info--text'> 
-                  All projects:
-                </v-card-title>
-                <v-card-title>
-                  <v-btn flat secondary router to="/newproject">
-                    <v-icon left class="secondary--text">create_new_folder</v-icon>
-                    New project</v-btn>
-                  <v-spacer class="hidden-xs-only"></v-spacer>
-                  <v-text-field
-                    prepend-icon="search"
-                    label="Search"
-                    v-model="search"
-                    hide-details
-                  ></v-text-field>
-                  </v-card-title>
+              <v-card-title dense class='subheader primary info--text'>All projects:</v-card-title>
                 <v-data-table
                     v-bind:headers='headers'
                     v-bind:items='projects'
@@ -31,27 +35,31 @@
                     <td class='text-xs-right grey--text text--darken-1'>{{ props.item.pm }}</td>
                     <td class='text-xs-right grey--text text--darken-1'>{{ props.item.client }}</td>
                 </template>
+                <template slot="footer">
+                  
+                  <td colspan="100%"><v-layout row wrap>
+                    <v-flex xs7 md4>
+                    <v-btn flat secondary router :to="{ name: 'ProjectCreate' }">
+                      <v-icon left class="secondary--text">note_add</v-icon>
+                      New project
+                    </v-btn></v-flex>
+                    <v-flex xs7 md7 offset-md1>
+                    <v-text-field
+                      prepend-icon="search"
+                      label="Search"
+                      v-model="search"
+                      hide-details
+                      class="pb-2"
+                    ></v-text-field></v-flex></v-layout>
+                  </td>
+                </template>
+
                 </v-data-table>
+
             </v-card>    
         </v-flex>
       </v-layout>
-      <v-layout row wrap>
-        <v-flex xs12 md10>
-          <v-card>
-            <div>
-              <v-map style="height:28rem" :zoom=11 :center="[48.413220, -123.419482]">
-                <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
-                  <v-marker 
-                  v-for="project in projects"
-                  v-if="project.latlng"
-                  :key="project.id"
-                  :lat-lng="project.latlng"
-                  ></v-marker>
-              </v-map>
-            </div>
-          </v-card>
-        </v-flex>
-      </v-layout>
+
   </v-container>
 </template>
 

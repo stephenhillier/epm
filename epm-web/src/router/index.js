@@ -5,6 +5,7 @@ import ProjectList from '@/components/ProjectList'
 import ProjectDetail from '@/components/ProjectDetail'
 import ProjectCreate from '@/components/ProjectCreate'
 import DatapointCreate from '@/components/datapoints/DatapointCreate'
+import BoreholeList from '@/components/datapoints/BoreholeList'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/myprojects/:id/data/add',
       name: 'DatapointCreate',
       component: DatapointCreate
+    },
+    {
+      path: '/myprojects/:id/data/boreholes',
+      name: 'BoreholeList',
+      component: BoreholeList
     },
     {
       path: '/myprojects/:id',

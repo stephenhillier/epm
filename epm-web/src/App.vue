@@ -78,7 +78,7 @@
         if (this.currentProject) {
           projectItems = [
             { title: 'Project overview', link: '/myprojects/' + this.currentProject.id },
-            { title: 'Boreholes' },
+            { title: 'Boreholes', link: { name: 'BoreholeList', params: { id: this.currentProject.id } } },
             { title: 'Instrumentation' },
             { title: 'Lab testing' }
           ]
