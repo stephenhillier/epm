@@ -66,19 +66,21 @@ class DataPoint(models.Model):
 
     # DataPoint instances must be one of the following types.
     # Related data will depend on the type of DataPoint
-    # e.g. TH/"Test hole" will have related fields "SoilLayer" and "Sample" containing field data
+    # e.g. BH/"Borehole" will have related fields "SoilLayer" and "Sample" containing field data
     
+    BOREHOLE = "BH"             # Borehole
     CPT = "CPT"                 # Cone Penetration Test
     DCPT = "DCPT"               # Dynamic Cone
     INCLINOMETER = "SI"         # Inclinometer/Slope Indicator
     SETTLEMENT_GAUGE = "SG"     # Settlement hub (a fixed survey target to measure settlement over time)
     PIEZOMETER = "PZ"           # water level piezo/standpipe
     TEST_PIT = "TP"             # Test pit excavation
-    TEST_HOLE = "TH"            # Drilled test hole
+    TEST_HOLE = "TH"            # Drilled test hole (deprecated, use bore hole)
     SAMPLING_POINT = "SA"       # General sampling point e.g. stockpile grab sample
 
 
     DATA_TYPE_CHOICES = (
+        (BOREHOLE, "Borehole"),
         (CPT, "CPT"),
         (DCPT, "DCPT"),
         (INCLINOMETER, "Inclinometer"),

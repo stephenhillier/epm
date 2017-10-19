@@ -36,7 +36,7 @@
                                     <v-select
                                       :items="datatypeOptions"
                                       v-model="datatype"
-                                      label="Select datatype (e.g. test hole or type of instrument)"
+                                      label="Select datatype (e.g. borehole or type of instrument)"
                                       item-text="display"
                                       item-value="value"
                                       return-object
@@ -173,7 +173,7 @@
     },
     data () {
       return {
-        datatype: { display: 'Test hole', value: 'TH' },
+        datatype: { display: 'Borehole', value: 'TH' },
         date: '2017-01-01',
         number: '',
         fieldTech: '',
