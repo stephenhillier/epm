@@ -37,7 +37,6 @@
                                       :items="datatypeOptions"
                                       v-model="datatype"
                                       label="Select datatype (e.g. test hole or type of instrument)"
-                                      single-line
                                       item-text="display"
                                       item-value="value"
                                       return-object
@@ -137,7 +136,14 @@
                               :lat-lng="latLng"
                               ></v-marker>
                           </v-map>
+
                           <v-btn secondary center :disabled="!latLngAvailable" @click="mapCenter = latLng">Center on marker</v-btn>
+                          <div>
+                            <v-btn @click="latUp()">^</v-btn>
+                            <v-btn @click="latDown()">v</v-btn>
+                            <v-btn @click="lngDown()">&lt;</v-btn>
+                            <v-btn @click="lngUp()">&gt;</v-btn>
+                          </div>
                         </v-card>
                       </v-flex>
                     </v-layout>  
@@ -171,8 +177,8 @@
         date: '2017-01-01',
         number: '',
         fieldTech: '',
-        lat: '',
-        lng: '',
+        lat: 48.413220,
+        lng: -123.419482,
         mapCenter: [48.413220, -123.419482],
         menu: false,
         modal: false
@@ -233,6 +239,18 @@
         }
         console.log(datapoint)
         this.$store.dispatch('addDatapoint', datapoint)
+      },
+      latUp () {
+        this.lat += 0.0005
+      },
+      latDown () {
+        this.lat -= 0.0005
+      },
+      lngUp () {
+        this.lng += 0.0005
+      },
+      lngDown () {
+        this.lng -= 0.0005
       }
     }
   }

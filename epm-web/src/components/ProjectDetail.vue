@@ -47,7 +47,7 @@
               <v-card-title>
                 <v-btn flat secondary router :to="{ name: 'DatapointCreate', params: { id: this.$route.params.id } }">
                   <v-icon left class="secondary--text">note_add</v-icon>
-                  Add new datapoint
+                  new
                 </v-btn>
                 <v-spacer class="hidden-xs-only"></v-spacer>
                 <v-text-field
@@ -93,7 +93,7 @@
     data () {
       return {
         pagination: {
-          sortBy: 'number'
+          sortBy: 'data_type'
         },
         search: '',
         headers: [
