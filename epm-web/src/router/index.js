@@ -1,11 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+
 import ProjectList from '@/components/ProjectList'
 import ProjectDetail from '@/components/ProjectDetail'
 import ProjectCreate from '@/components/ProjectCreate'
-import DatapointCreate from '@/components/datapoints/DatapointCreate'
+
 import BoreholeList from '@/components/datapoints/BoreholeList'
+import BoreholeDetail from '@/components/datapoints/BoreholeDetail'
+
+import InstrumentList from '@/components/datapoints/InstrumentList'
+import InstrumentDetail from '@/components/datapoints/InstrumentDetail'
+
+import DatapointCreate from '@/components/datapoints/DatapointCreate'
 
 Vue.use(Router)
 
@@ -25,14 +32,29 @@ export default new Router({
       component: ProjectCreate
     },
     {
-      path: '/myprojects/:id/data/add',
-      name: 'DatapointCreate',
-      component: DatapointCreate
+      path: '/myprojects/:id/data/boreholes/:bh',
+      name: 'BoreholeDetail',
+      component: BoreholeDetail
     },
     {
       path: '/myprojects/:id/data/boreholes',
       name: 'BoreholeList',
       component: BoreholeList
+    },
+    {
+      path: '/myprojects/:id/data/instruments/:instr',
+      name: 'InstrumentDetail',
+      component: InstrumentDetail
+    },
+    {
+      path: '/myprojects/:id/data/instruments',
+      name: 'InstrumentList',
+      component: InstrumentList
+    },
+    {
+      path: '/myprojects/:id/data/add',
+      name: 'DatapointCreate',
+      component: DatapointCreate
     },
     {
       path: '/myprojects/:id',

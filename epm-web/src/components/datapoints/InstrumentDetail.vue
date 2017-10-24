@@ -4,12 +4,12 @@
         <v-flex xs12 md10>
             <v-card>
                 <v-card-title dense class='subheader primary info--text'> 
-                  Project overview:&nbsp;<div v-if="project">{{ project.name }}</div>
+                  Instrument details:&nbsp;<div v-if="instrument">{{ instrument.name }}</div>
                 </v-card-title>
                 <v-card-text>
-                  <v-layout v-if="projectSummary" row wrap>
+                  <v-layout v-if="instrumentSummary" row wrap>
                       <v-flex md5 xs12>
-                        <div v-for="item in projectSummary" :key="item.title">
+                        <div v-for="item in instrumentSummary" :key="item.title">
                           <v-layout row wrap>   
                             <v-flex md4 subheader class="grey--text text--darken-2">{{ item.title }}</v-flex>
                             <v-flex md8 subheader class="primary--text">{{ item.value }}</v-flex>
@@ -23,11 +23,9 @@
                             <v-map style="height:28rem" :zoom=11 :center="[48.413220, -123.419482]">
                               <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
                                 <v-marker 
-                                v-for="point in projectData"
-                                v-if="point.latlng"
-                                :key="point.id"
-                                :lat-lng="point.latlng">
-                                  <v-tooltip :content="point.name"></v-tooltip>
+                                v-if="instrument.location"
+                                :lat-lng="instrument.location">
+                                  <v-tooltip :content="instrument.name"></v-tooltip>
                                 </v-marker>
                             </v-map>
 
@@ -42,34 +40,24 @@
       <v-flex xs12 md10>
           <v-card>
               <v-card-title dense class='subheader primary info--text'> 
-                All datapoints:
+                Soil layers for {{ instrument.name }}:
               </v-card-title>
               <v-card-title>
                 <v-btn flat secondary router :to="{ name: 'DatapointCreate', params: { id: this.$route.params.id } }">
                   <v-icon left class="secondary--text">note_add</v-icon>
-                  New datapoint
+                  Add soil unit
                 </v-btn>
-                <v-spacer class="hidden-xs-only"></v-spacer>
-                <v-text-field
-                  prepend-icon="search"
-                  label="Search"
-                  v-model="search"
-                  hide-details
-                ></v-text-field>
                 </v-card-title>
               <v-data-table
                   v-bind:headers='headers'
-                  v-bind:items='projectData'
+                  v-bind:items='soilLayers'
                   v-bind:search='search'
                   v-bind:pagination.sync="pagination"
                   class='elevation-1'>
               <template slot='items' scope='props'>
-                <router-link :to="datapointLink(props.item.data_type, props.item.id)" tag="td" class="accent--text"><a>{{ props.item.name }}</a></router-link>
-                <td class='text-xs-right grey--text text--darken-1'>{{ props.item.data_type }}</td>
-                <td class='text-xs-right grey--text text--darken-1'>{{ props.item.date }}</td>
-                <td class='text-xs-right grey--text text--darken-1'>{{ props.item.field_tech }}</td>
-                <td class='text-xs-right grey--text text--darken-1'>{{ props.item.location.latitude }}</td>
-                <td class='text-xs-right grey--text text--darken-1'>{{ props.item.location.longitude }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_from }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_to }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.get_uscs_display }}</td>
               </template>
               </v-data-table>
           </v-card>    
@@ -79,7 +67,6 @@
 </template>
 
 <script>
-  import datapointLink from '@/mixins/datapointLink.js'
   import L from 'leaflet'
 
   delete L.Icon.Default.prototype._getIconUrl
@@ -91,59 +78,56 @@
   })
 
   export default {
-    mixins: [datapointLink],
     data () {
       return {
         pagination: {
-          sortBy: 'data_type'
+          sortBy: 'depth_from'
         },
         search: '',
         headers: [
-          {
-            text: 'Datapoint',
-            align: 'left',
-            sortable: false,
-            value: 'name'
-          },
-          { text: 'Type', value: 'data_type' },
-          { text: 'Date', value: 'date' },
-          { text: 'Logged by', value: 'field_tech' },
-          { text: 'Latitude', value: 'location.latitude' },
-          { text: 'Longitude', value: 'location.longitude' }
+          { text: 'Depth from', value: 'depth_from', align: 'left', sortable: false },
+          { text: 'Depth to', value: 'depth_to', align: 'left', sortable: false },
+          { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false }
         ]
       }
     },
     computed: {
       project () {
-        return this.$store.getters.currentProject
-      },
-      projectSummary () {
-        if (!this.project) {
-          return
+        const project = this.$store.getters.currentProject
+        if (!project) {
+          return {}
+        } else {
+          return project
         }
-        let projectSummary = [
+      },
+      instrument () {
+        const instrument = this.$store.getters.getInstrumentData
+        if (!instrument) {
+          return {}
+        } else {
+          return instrument
+        }
+      },
+      instrumentSummary () {
+        if (!this.instrument) {
+          return []
+        }
+        var instrumentSummary = [
+          { title: 'Instrument name: ', value: this.instrument.name },
+          { title: 'Type: ', value: this.instrument.data_type },
           { title: 'Project name: ', value: this.project.name },
           { title: 'Project number: ', value: this.project.number },
-          { title: 'Client: ', value: this.project.client },
-          { title: 'Location: ', value: this.project.location },
-          { title: 'Project manager: ', value: this.project.pm },
-          { title: 'Boreholes: ', value: this.boreholeCount },
-          { title: 'Instruments: ', value: this.instrumentCount }
+          { title: 'Date: ', value: this.instrument.date },
+          { title: 'Logged by: ', value: this.instrument.field_tech },
+          { title: 'Latitude: ', value: this.instrument.location.latitude },
+          { title: 'Longitude: ', value: this.instrument.location.longitude }
         ]
-        return projectSummary
-      },
-      projectData () {
-        var data = this.$store.getters.projectData
-        if (!data) {
-          return []
-        } else {
-          return data
-        }
+        return instrumentSummary
       },
       boreholeCount () {
         var count = 0
         for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type === 'TH') {
+          if (this.projectData[obj].data_type === 'BH') {
             count += 1
           }
         }
@@ -152,7 +136,7 @@
       instrumentCount () {
         var count = 0
         for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type !== 'TH') {
+          if (this.projectData[obj].data_type !== 'BH') {
             count += 1
           }
         }
@@ -161,7 +145,7 @@
     },
     created () {
       this.$store.dispatch('loadCurrentProject', this.$route.params.id)
-      this.$store.dispatch('loadProjectData', this.$route.params.id)
+      this.$store.dispatch('loadBoreholeData', { id: this.$route.params.id, bh: this.$route.params.bh })
     }
   }
 </script>

@@ -15,7 +15,8 @@ export const store = new Vuex.Store({
     currentProject: null,
     message: null,
     projectData: null,
-    datatypeOptions: []
+    datatypeOptions: [],
+    currentBorehole: []
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -47,6 +48,9 @@ export const store = new Vuex.Store({
     },
     setDatatypeOptions (state, payload) {
       state.datatypeOptions = payload
+    },
+    setCurrentBorehole (state, payload) {
+      state.currentBorehole = payload
     }
   },
   actions: {
@@ -145,6 +149,24 @@ export const store = new Vuex.Store({
         }
       )
     },
+    loadBoreholeData ({commit}, payload) {
+      commit('setLoading', true)
+      axios.get(api + '/projects/' + payload.id + '/data/' + payload.bh + '/')
+      .then(
+        response => {
+          const boreholeResponse = response.data
+          commit('setCurrentBorehole', boreholeResponse)
+          commit('setLoading', false)
+          console.log(boreholeResponse)
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        })
+    },
     changeUser ({commit}, payload) {
       commit('setUser', payload)
     },
@@ -204,6 +226,9 @@ export const store = new Vuex.Store({
     },
     projectData (state) {
       return state.projectData
+    },
+    getBoreholeData (state) {
+      return state.currentBorehole
     },
     getUser (state) {
       return state.user

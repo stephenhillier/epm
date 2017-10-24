@@ -6,7 +6,7 @@
         <v-map style="height:16rem" :zoom=11 :center="[48.413220, -123.419482]">
           <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
           <v-marker 
-          v-for="point in boreholes"
+          v-for="point in instruments"
           v-if="point.location"
           :key="point.id"
           :lat-lng="[point.location.latitude, point.location.longitude]">
@@ -19,12 +19,12 @@
     <v-layout row wrap class="mb-2">
       <v-flex xs12 md10>
           <v-card>
-            <v-card-title dense class='subheader primary info--text'>All boreholes:</v-card-title>
+            <v-card-title dense class='subheader primary info--text'>All instruments:</v-card-title>
                 <v-card-text>
                 <v-layout row wrap> 
                     <v-data-table
                         v-bind:headers='headers'
-                        v-bind:items='boreholes'
+                        v-bind:items='instruments'
                         v-bind:search='search'
                         v-bind:pagination.sync="pagination"
                         class='elevation-1'>
@@ -42,7 +42,7 @@
                               <v-flex xs7 md4>
                               <v-btn flat secondary router :to="{ name: 'DatapointCreate', params: { id: this.$route.params.id } }">
                                 <v-icon left class="secondary--text">note_add</v-icon>
-                                New borehole
+                                New instrument
                               </v-btn></v-flex>
                               <v-flex xs7 md7 offset-md1>
                               <v-text-field
@@ -92,7 +92,7 @@
           },
           { text: 'Type', value: 'data_type' },
           { text: 'Date', value: 'date' },
-          { text: 'Logged by', value: 'field_tech' },
+          { text: 'Installed by', value: 'field_tech' },
           { text: 'Latitude', value: 'location.latitude' },
           { text: 'Longitude', value: 'location.longitude' }
         ]
@@ -102,33 +102,24 @@
       project () {
         return this.$store.getters.currentProject
       },
-      boreholes () {
+      instruments () {
         var data = this.$store.getters.projectData
         if (!data) {
           return []
         } else {
-          var boreholes = []
+          var instruments = []
           for (let item in data) {
-            if (data[item].data_type === 'BH') {
-              boreholes.push(data[item])
+            if (data[item].data_type !== 'BH') {
+              instruments.push(data[item])
             }
           }
-          return boreholes
+          return instruments
         }
-      },
-      boreholeCount () {
-        var count = 0
-        for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type === 'TH') {
-            count += 1
-          }
-        }
-        return count
       },
       instrumentCount () {
         var count = 0
         for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type !== 'TH') {
+          if (this.projectData[obj].data_type !== 'BH') {
             count += 1
           }
         }
