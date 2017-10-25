@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      <v-layout row wrap class="mb-3">
+      <v-layout v-if="borehole" row wrap class="mb-3">
         <v-flex xs12 md10>
             <v-card>
                 <v-card-title dense class='subheader primary info--text'> 
@@ -18,13 +18,13 @@
                         </div>
                       </v-flex>
                       <v-flex xs12 md6 offset-md1>
-                        <v-card>
+                        <v-card v-if="boreholeLocation">
 
-                            <v-map style="height:28rem" :zoom=11 :center="[48.413220, -123.419482]">
+                            <v-map style="height:28rem" :zoom=11 :center="boreholeLocation">
                               <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
                                 <v-marker 
-                                v-if="borehole.location"
-                                :lat-lng="borehole.location">
+                                v-if="boreholeLocation"
+                                :lat-lng="boreholeLocation">
                                   <v-tooltip :content="borehole.name"></v-tooltip>
                                 </v-marker>
                             </v-map>
@@ -36,7 +36,7 @@
             </v-card>
         </v-flex>
     </v-layout>
-    <v-layout row wrap class="mb-3">
+    <v-layout v-if="borehole" row wrap class="mb-3">
       <v-flex xs12 md10>
           <v-card>
               <v-card-title dense class='subheader primary info--text'> 
@@ -147,6 +147,13 @@
           }
         }
         return count
+      },
+      boreholeLocation () {
+        if (!this.borehole.location) {
+          return []
+        } else {
+          return [this.borehole.location.latitude, this.borehole.location.longitude]
+        }
       }
     },
     created () {
