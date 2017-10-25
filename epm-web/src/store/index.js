@@ -12,7 +12,7 @@ export const store = new Vuex.Store({
     loading: false,
     user: null,
     myProjects: [],
-    currentProject: null,
+    currentProject: {},
     message: null,
     projectData: null,
     datatypeOptions: [],
