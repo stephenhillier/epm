@@ -49,12 +49,40 @@
                 </v-btn>
                 </v-card-title>
               <v-data-table
-                  v-bind:headers='headers'
+                  v-bind:headers='soilLayersHeaders'
                   v-bind:items='soilLayers'
-                  v-bind:search='search'
-                  v-bind:pagination.sync="pagination"
+                  v-bind:search='soilLayersSearch'
+                  v-bind:pagination.sync="soilLayersPagination"
                   class='elevation-1'>
               <template slot='items' scope='props'>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_from }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_to }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.get_uscs_display }}</td>
+              </template>
+              </v-data-table>
+          </v-card>    
+      </v-flex>
+    </v-layout>
+    <v-layout v-if="boreholeSamples" row wrap class="mb-3">
+      <v-flex xs12 md10>
+          <v-card>
+              <v-card-title dense class='subheader primary info--text'> 
+                Soil samples for {{ borehole.name }}:
+              </v-card-title>
+              <v-card-title>
+                <v-btn flat secondary router :to="{ name: 'SampleCreate', params: { id: this.$route.params.id } }">
+                  <v-icon left class="secondary--text">note_add</v-icon>
+                  Add sample
+                </v-btn>
+                </v-card-title>
+              <v-data-table
+                  v-bind:headers='boreholeSamplesHeaders'
+                  v-bind:items='boreholeSamples'
+                  v-bind:search='boreholeSamplesSearch'
+                  v-bind:pagination.sync="boreholeSamplesPagination"
+                  class='elevation-1'>
+              <template slot='items' scope='props'>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.name }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_from }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_to }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.get_uscs_display }}</td>
@@ -80,11 +108,21 @@
   export default {
     data () {
       return {
-        pagination: {
+        soilLayersPagination: {
           sortBy: 'depth_from'
         },
-        search: '',
-        headers: [
+        soilLayersSearch: '',
+        soilLayersHeaders: [
+          { text: 'Depth from', value: 'depth_from', align: 'left', sortable: false },
+          { text: 'Depth to', value: 'depth_to', align: 'left', sortable: false },
+          { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false }
+        ],
+        boreholeSamplesPagination: {
+          sortBy: 'depth_from'
+        },
+        boreholeSamplesSearch: '',
+        boreholeSamplesHeaders: [
+          { text: 'Name', value: 'name', align: 'left', sortable: false },
           { text: 'Depth from', value: 'depth_from', align: 'left', sortable: false },
           { text: 'Depth to', value: 'depth_to', align: 'left', sortable: false },
           { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false }
@@ -114,6 +152,25 @@
         } else {
           return this.borehole.soil_layers
         }
+      },
+      boreholeSamples () {
+        var samples = [
+          {
+            id: 1,
+            name: 'SA1',
+            depth_from: 2.1,
+            depth_to: 2.4,
+            get_uscs_display: 'GP'
+          },
+          {
+            id: 2,
+            name: 'SA2',
+            depth_from: 3.1,
+            depth_to: 3.3,
+            get_uscs_display: 'SP'
+          }
+        ]
+        return samples
       },
       boreholeSummary () {
         if (!this.borehole) {

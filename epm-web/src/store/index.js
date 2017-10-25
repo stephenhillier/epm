@@ -16,7 +16,8 @@ export const store = new Vuex.Store({
     message: null,
     projectData: null,
     datatypeOptions: [],
-    currentBorehole: []
+    currentBorehole: [],
+    projectSamples: []
   },
   mutations: {
     loadRetrievedProjects (state, payload) {

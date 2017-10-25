@@ -42,7 +42,7 @@
       <v-flex xs12 md10>
           <v-card>
               <v-card-title dense class='subheader primary info--text'> 
-                All datapoints:
+                All datapoints (boreholes, sampling points and instrumentation):
               </v-card-title>
               <v-card-title>
                 <v-btn flat secondary router :to="{ name: 'DatapointCreate', params: { id: this.$route.params.id } }">
@@ -143,7 +143,7 @@
       boreholeCount () {
         var count = 0
         for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type === 'TH') {
+          if (this.projectData[obj].data_type === 'BH') {
             count += 1
           }
         }
@@ -152,7 +152,7 @@
       instrumentCount () {
         var count = 0
         for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type !== 'TH') {
+          if (this.projectData[obj].data_type !== 'BH') {
             count += 1
           }
         }
