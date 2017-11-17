@@ -8,6 +8,7 @@ import ProjectCreate from '@/components/ProjectCreate'
 
 import BoreholeList from '@/components/datapoints/BoreholeList'
 import BoreholeDetail from '@/components/datapoints/BoreholeDetail'
+import SoilUnitCreate from '@/components/datapoints/SoilUnitCreate'
 
 import InstrumentList from '@/components/datapoints/InstrumentList'
 import InstrumentDetail from '@/components/datapoints/InstrumentDetail'
@@ -30,6 +31,11 @@ export default new Router({
       path: '/newproject',
       name: 'ProjectCreate',
       component: ProjectCreate
+    },
+    {
+      path: '/myprojects/:id/data/boreholes/:bh/newlayer',
+      name: 'SoilUnitCreate',
+      component: SoilUnitCreate
     },
     {
       path: '/myprojects/:id/data/boreholes/:bh',
