@@ -11,7 +11,9 @@
                   v-if="project.latlng"
                   :key="project.id"
                   :lat-lng="project.latlng"
-                  ></v-marker>
+                  >
+                  <v-tooltip :content="project.number + ' - ' + project.name"></v-tooltip>
+                  </v-marker>
               </v-map>
             </div>
           </v-card>
