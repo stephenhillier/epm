@@ -27,6 +27,7 @@ class APIDataPointViewSet(viewsets.ModelViewSet):
 
 class APISoilLayerViewSet(viewsets.ModelViewSet):
     serializer_class = SoilLayerSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         return SoilLayer.objects.filter(datapoint_id=self.kwargs['datapoint'])
