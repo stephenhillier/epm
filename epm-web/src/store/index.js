@@ -173,7 +173,7 @@ export const store = new Vuex.Store({
     },
     loadDatatypeOptions ({commit}, projectId) {
       commit('setLoading', true)
-      axios.options(api + '/projects/' + projectId + /data/)
+      axios.options(api + '/projects/' + projectId + '/data/')
       .then(
         response => {
           console.log(response)
@@ -200,7 +200,7 @@ export const store = new Vuex.Store({
     },
     addDatapoint ({commit}, payload) {
       commit('setLoading', true)
-      axios.post(api + /projects/ + payload.project_id + /data/, payload)
+      axios.post(api + '/projects/' + payload.project_id + '/data/', payload)
       .then(
         response => {
           commit('setLoading', false)
@@ -210,6 +210,25 @@ export const store = new Vuex.Store({
       )
       .catch(
         error => {
+          commit('setLoading', false)
+          console.log(error)
+        }
+      )
+    },
+    addSoilLayer ({commit}, payload) {
+      commit('setLoading', true)
+      console.log(api + '/projects/' + payload.project_id + '/data/' + payload.data.datapoint + '/soil_layers/')
+      axios.post(api + '/projects/' + payload.project_id + '/data/' + payload.data.datapoint + '/soil_layers/', payload.data)
+      .then(
+        response => {
+          commit('setLoading', false)
+          store.dispatch('loadBoreholeData', { id: payload.project_id, bh: payload.data.datapoint })
+          router.push({name: 'BoreholeDetail', params: { id: payload.project_id, bh: payload.data.datapoint }})
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
           console.log(error)
         }
       )

@@ -9,14 +9,14 @@
                 <v-card-text>
                   <v-layout row wrap>
                     <v-flex md5 xs12>
-                      <form @submit.prevent="onCreateProject">
+                      <form @submit.prevent="onCreateSoilLayer">
                           <v-layout row>
                               <v-flex md10>
                                   <v-text-field
                                   name="number"
                                   label="Project number"
                                   id="number"
-                                  v-model="number"
+                                  v-model="this.project.number"
                                   disabled></v-text-field>
                               </v-flex>
                           </v-layout>
@@ -26,7 +26,7 @@
                                   name="borehole"
                                   label="Borehole"
                                   id="borehole"
-                                  v-model="borehole"
+                                  v-model="this.borehole.name"
                                   disabled></v-text-field>
                               </v-flex>
                           </v-layout>
@@ -79,8 +79,6 @@
   export default {
     data () {
       return {
-        number: this.project.number,
-        borehole: this.borehole.name,
         depthFrom: '',
         depthTo: '',
         uscs: ''
@@ -104,10 +102,13 @@
         }
         const soilLayer = {
           project_id: this.$route.params.id,
-          borehole_id: this.$route.params.bh,
-          depth_from: this.depthFrom,
-          depth_to: this.depthTo,
-          uscs: this.uscs
+          data: {
+            project_id: this.$route.params.id,
+            datapoint: this.$route.params.bh,
+            depth_from: this.depthFrom,
+            depth_to: this.depthTo,
+            uscs: this.uscs
+          }
         }
         console.log(soilLayer)
         this.$store.dispatch('addSoilLayer', soilLayer)

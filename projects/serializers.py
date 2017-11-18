@@ -8,7 +8,7 @@ class SoilLayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = SoilLayer
         datapoint = serializers.ReadOnlyField()
-        fields = ('id', 'datapoint', 'depth_from', 'depth_to', 'get_uscs_display',)
+        fields = ('id', 'datapoint', 'depth_from', 'depth_to', 'uscs', 'get_uscs_display')
 
 
 class DataPointSerializer(serializers.ModelSerializer):
