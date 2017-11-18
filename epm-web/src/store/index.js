@@ -17,7 +17,8 @@ export const store = new Vuex.Store({
     projectData: null,
     datatypeOptions: [],
     currentBorehole: {},
-    projectSamples: []
+    projectSamples: [],
+    uscsOptions: [{ value: '', display_name: '' }]
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -52,6 +53,9 @@ export const store = new Vuex.Store({
     },
     setCurrentBorehole (state, payload) {
       state.currentBorehole = payload
+    },
+    setUscsOptions (state, payload) {
+      state.uscsOptions = payload
     }
   },
   actions: {
@@ -198,6 +202,28 @@ export const store = new Vuex.Store({
         }
       )
     },
+    loadUscsOptions ({commit}, payload) {
+      console.log(api + '/projects/' + payload.project_id + '/data/' + payload.borehole_id + '/soil_layers/')
+      axios.options(api + '/projects/' + payload.project_id + '/data/' + payload.borehole_id + '/soil_layers/')
+      .then(
+        response => {
+          const uscsChoices = response.data.actions.POST.uscs.choices
+          const choices = []
+          for (let item in uscsChoices) {
+            choices.push({
+              value: uscsChoices[item].value,
+              display_name: uscsChoices[item].display_name
+            })
+          }
+          commit('setUscsOptions', choices)
+        })
+      .catch(
+        error => {
+          commit('setError', error)
+          console.log(error)
+        }
+      )
+    },
     addDatapoint ({commit}, payload) {
       commit('setLoading', true)
       axios.post(api + '/projects/' + payload.project_id + '/data/', payload)
@@ -255,6 +281,9 @@ export const store = new Vuex.Store({
     },
     getDatatypeOptions (state) {
       return state.datatypeOptions
+    },
+    getUscsOptions (state) {
+      return state.uscsOptions
     }
   }
 })

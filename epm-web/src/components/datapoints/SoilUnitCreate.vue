@@ -52,12 +52,14 @@
                           </v-layout>
                           <v-layout row>
                               <v-flex xs12 md10>
-                                  <v-text-field
-                                  name="uscs"
-                                  label="USCS Classification"
-                                  id="uscs"
+                                <v-select
+                                  :items="uscsOptions"
                                   v-model="uscs"
-                                  required></v-text-field>
+                                  label="Select USCS classification"
+                                  item-text="display_name"
+                                  item-value="value"
+                                  return-object
+                                ></v-select>
                               </v-flex>
                           </v-layout>
                           <v-layout row>
@@ -93,6 +95,14 @@
       },
       project () {
         return this.$store.getters.currentProject
+      },
+      uscsOptions () {
+        var options = this.$store.getters.getUscsOptions
+        if (!options) {
+          return [{ name: '', display_name: '' }]
+        } else {
+          return options
+        }
       }
     },
     methods: {
@@ -107,12 +117,15 @@
             datapoint: this.$route.params.bh,
             depth_from: this.depthFrom,
             depth_to: this.depthTo,
-            uscs: this.uscs
+            uscs: this.uscs.value
           }
         }
         console.log(soilLayer)
         this.$store.dispatch('addSoilLayer', soilLayer)
       }
+    },
+    created () {
+      this.$store.dispatch('loadUscsOptions', { project_id: this.$route.params.id, borehole_id: this.$route.params.bh })
     }
   }
 </script>
