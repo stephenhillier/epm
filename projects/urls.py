@@ -3,6 +3,7 @@ from projects import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
+router.register(r'projects/(?P<project>\d+)/data/(?P<datapoint>\d+)/soil_samples', views.APISoilSampleViewSet, base_name='soil_sample-api')
 router.register(r'projects/(?P<project>\d+)/data/(?P<datapoint>\d+)/soil_layers', views.APISoilLayerViewSet, base_name='soil_layer-api')
 router.register(r'projects/(?P<project>\d+)/data', views.APIDataPointViewSet, base_name='datapoint-api')
 router.register(r'projects', views.APIProjectViewSet, base_name='project-api')

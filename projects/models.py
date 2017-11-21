@@ -184,7 +184,7 @@ class SoilSample(models.Model):
     - related name: soil_samples
     """
     datapoint = models.ForeignKey(DataPoint, related_name='soil_samples', on_delete=models.CASCADE)
-    number = models.PositiveIntegerField()
+    number = models.PositiveIntegerField() # sample number, should be unique for each borehole
     date = models.DateField()
     field_tech = models.CharField(max_length=50)
     depth_from = models.DecimalField(max_digits=5, decimal_places=2)
@@ -194,4 +194,7 @@ class SoilSample(models.Model):
         ordering = ['number']
 
     def __str__(self):
-        return self.datapoint.name + ' SA' + self.number
+        return self.datapoint.name + ' SA' + str(self.number)
+
+    def sample_name(self):
+        return self.datapoint.name + ' SA' + str(self.number)

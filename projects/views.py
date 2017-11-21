@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import permissions, viewsets
 from rest_framework.reverse import reverse
 from projects.models import Project, DataPoint, SoilLayer, SoilSample
-from projects.serializers import ProjectSerializer, UserSerializer, DataPointSerializer, SoilLayerSerializer
+from projects.serializers import ProjectSerializer, UserSerializer, DataPointSerializer, SoilLayerSerializer, SoilSampleSerializer
 
 class APIProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all().order_by('-number')
@@ -31,6 +31,17 @@ class APISoilLayerViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return SoilLayer.objects.filter(datapoint_id=self.kwargs['datapoint'])
+
+    def perform_create(self, serializer):
+        serializer.save(datapoint_id=self.kwargs['datapoint'])
+
+
+class APISoilSampleViewSet(viewsets.ModelViewSet):
+    serializer_class = SoilSampleSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return SoilSample.objects.filter(datapoint_id=self.kwargs['datapoint'])
 
     def perform_create(self, serializer):
         serializer.save(datapoint_id=self.kwargs['datapoint'])

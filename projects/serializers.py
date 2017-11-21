@@ -1,14 +1,25 @@
 from rest_framework import serializers
-from projects.models import Project, DataPoint, SoilLayer
+from projects.models import Project, DataPoint, SoilLayer, SoilSample
 from django.contrib.auth.models import User
 from drf_extra_fields.geo_fields import PointField
 
 
+class SoilSampleSerializer(serializers.ModelSerializer):
+    datapoint_id = serializers.ReadOnlyField()
+    sample_name = serializers.ReadOnlyField()
+
+    class Meta:
+        model = SoilSample
+        fields = ('id', 'datapoint_id', 'number', 'sample_name', 'date', 'field_tech', 'depth_from', 'depth_to')
+        
+
 class SoilLayerSerializer(serializers.ModelSerializer):
+    datapoint_id = serializers.ReadOnlyField()    
+
     class Meta:
         model = SoilLayer
-        datapoint = serializers.ReadOnlyField()
-        fields = ('id', 'datapoint', 'depth_from', 'depth_to', 'uscs', 'get_uscs_display')
+
+        fields = ('id', 'datapoint_id', 'depth_from', 'depth_to', 'uscs', 'get_uscs_display')
 
 
 class DataPointSerializer(serializers.ModelSerializer):
