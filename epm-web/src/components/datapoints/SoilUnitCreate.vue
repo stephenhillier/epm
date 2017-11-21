@@ -59,12 +59,13 @@
                                   item-text="display_name"
                                   item-value="value"
                                   return-object
+                                  required
                                 ></v-select>
                               </v-flex>
                           </v-layout>
                           <v-layout row>
                             <v-flex xs12 md6>
-                              <v-btn secondary :disabled="!formIsValid" type="submit">Create</v-btn>
+                              <v-btn secondary type="submit">Create</v-btn>
                             </v-flex>
                           </v-layout>
                       </form>
@@ -87,9 +88,6 @@
       }
     },
     computed: {
-      formIsValid () {
-        return this.name !== '' && this.number !== '' && this.client !== '' && this.location !== ''
-      },
       borehole () {
         return this.$store.getters.getBoreholeData
       },
@@ -107,9 +105,6 @@
     },
     methods: {
       onCreateSoilLayer () {
-        if (!this.formIsValid) {
-          return
-        }
         const soilLayer = {
           project_id: this.$route.params.id,
           data: {
