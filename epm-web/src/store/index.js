@@ -258,6 +258,23 @@ export const store = new Vuex.Store({
           console.log(error)
         }
       )
+    },
+    addSoilSample ({commit}, payload) {
+      commit('setLoading', true)
+      axios.post(api + '/projects/' + payload.project_id + '/data/' + payload.datapoint_id + '/soil_samples/', payload.data)
+      .then(
+        response => {
+          commit('setLoading', false)
+          store.dispatch('loadBoreholeData', { id: payload.project_id, bh: payload.datapoint_id })
+          router.push({name: 'BoreholeDetail', params: { id: payload.project_id, bh: payload.datapoint_id }})
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          console.log(error)
+        }
+      )
     }
   },
   getters: {

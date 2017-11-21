@@ -43,6 +43,38 @@
                           </v-layout>
                           <v-layout row>
                               <v-flex xs12 md10>
+                                <v-menu
+                                  lazy
+                                  :close-on-content-click="false"
+                                  v-model="menu"
+                                  transition="scale-transition"
+                                  offset-y
+                                  full-width
+                                  :nudge-right="40"
+                                  max-width="290px"
+                                  min-width="290px"
+                                >
+                                  <v-text-field
+                                    slot="activator"
+                                    label="Sample date"
+                                    v-model="sampleDate"
+                                    prepend-icon="event"
+                                    readonly
+                                  ></v-text-field>
+                                  <v-date-picker v-model="sampleDate" no-title scrollable actions>
+                                    <template scope="{ save, cancel }">
+                                      <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+                                        <v-btn flat color="primary" @click="save">OK</v-btn>
+                                      </v-card-actions>
+                                    </template>
+                                  </v-date-picker>
+                                </v-menu>
+                              </v-flex>
+                          </v-layout>
+                          <v-layout row>
+                              <v-flex xs12 md10>
                                   <v-text-field
                                   name="depthFrom"
                                   label="Depth from"
@@ -62,8 +94,19 @@
                               </v-flex>
                           </v-layout>
                           <v-layout row>
+                            <v-flex xs12 md10>
+                              <v-text-field
+                                name="fieldTech"
+                                label="Field tech"
+                                id="fieldTech"
+                                v-model="fieldTech"
+                                required>
+                              </v-text-field>
+                            </v-flex>
+                          </v-layout>
+                          <v-layout row>
                             <v-flex xs12 md6>
-                              <v-btn secondary :disabled="!formIsValid" type="submit">Create</v-btn>
+                              <v-btn secondary type="submit">Create</v-btn>
                             </v-flex>
                           </v-layout>
                       </form>
@@ -82,7 +125,10 @@
       return {
         depthFrom: '',
         depthTo: '',
-        sampleNumber: ''
+        sampleNumber: '',
+        sampleDate: '',
+        fieldTech: '',
+        menu: false
       }
     },
     computed: {
@@ -94,14 +140,16 @@
       }
     },
     methods: {
-      onCreateSoilLayer () {
+      onCreateSoilSample () {
         const soilSample = {
           project_id: this.$route.params.id,
+          datapoint_id: this.$route.params.bh,
           data: {
-            datapoint: this.$route.params.bh,
             depth_from: this.depthFrom,
             depth_to: this.depthTo,
-            number: this.sampleNumber
+            number: this.sampleNumber,
+            date: this.sampleDate,
+            field_tech: this.fieldTech
           }
         }
         console.log(soilSample)
