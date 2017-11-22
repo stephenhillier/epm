@@ -42,7 +42,7 @@
       <v-flex xs12 md10>
           <v-card>
               <v-card-title dense class='subheader primary info--text'> 
-                All datapoints (boreholes, sampling points and instrumentation):
+                All boreholes, sampling points and instrumentation:
               </v-card-title>
               <v-card-title>
                 <v-btn flat secondary router :to="{ name: 'DatapointCreate', params: { id: this.$route.params.id } }">
