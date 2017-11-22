@@ -18,7 +18,8 @@ export const store = new Vuex.Store({
     datatypeOptions: [],
     currentBorehole: {},
     projectSamples: [],
-    uscsOptions: [{ value: '', display_name: '' }]
+    uscsOptions: [{ value: '', display_name: '' }],
+    sampleList: []
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -56,6 +57,9 @@ export const store = new Vuex.Store({
     },
     setUscsOptions (state, payload) {
       state.uscsOptions = payload
+    },
+    setSampleList (state, payload) {
+      state.sampleList = payload
     }
   },
   actions: {
@@ -275,6 +279,27 @@ export const store = new Vuex.Store({
           console.log(error)
         }
       )
+    },
+    loadSampleData ({commit}, payload) {
+      commit('setLoading', true)
+      axios.get(api + '/projects/' + payload.id + '/data/')
+      .then(
+        response => {
+          console.log(response)
+          commit('setLoading', false)
+          var data = response.data
+          var sampleList = []
+          for (let obj in data) {
+            if (data[obj].soil_samples) {
+              for (let sample in data[obj].soil_samples) {
+                sampleList.push(data[obj].soil_samples[sample])
+              }
+            }
+          }
+          console.log(sampleList)
+          commit('setSampleList', sampleList)
+        }
+      )
     }
   },
   getters: {
@@ -301,6 +326,9 @@ export const store = new Vuex.Store({
     },
     getUscsOptions (state) {
       return state.uscsOptions
+    },
+    getSoilSamples (state) {
+      return state.sampleList
     }
   }
 })

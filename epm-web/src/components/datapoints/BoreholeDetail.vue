@@ -70,7 +70,7 @@
                 Soil samples for {{ borehole.name }}:
               </v-card-title>
               <v-card-title>
-                <v-btn flat secondary router :to="{ name: 'SoilSampleCreate', params: { id: this.$route.params.id, bh:this.$route.params.id } }">
+                <v-btn flat secondary router :to="{ name: 'SoilSampleCreate', params: { id: this.$route.params.id, bh: this.$route.params.bh } }">
                   <v-icon left class="secondary--text">note_add</v-icon>
                   Add sample
                 </v-btn>

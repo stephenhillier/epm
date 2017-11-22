@@ -80,7 +80,7 @@
             { title: 'Project overview', link: '/myprojects/' + this.currentProject.id },
             { title: 'Boreholes', link: { name: 'BoreholeList', params: { id: this.currentProject.id } } },
             { title: 'Instrumentation', link: { name: 'InstrumentList', params: { id: this.currentProject.id } } },
-            { title: 'Lab testing' }
+            { title: 'Lab testing', link: { name: 'SampleList', params: { id: this.currentProject.id } } }
           ]
         }
         return projectItems

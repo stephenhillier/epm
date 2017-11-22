@@ -14,6 +14,8 @@ import SoilSampleCreate from '@/components/datapoints/SoilSampleCreate'
 import InstrumentList from '@/components/datapoints/InstrumentList'
 import InstrumentDetail from '@/components/datapoints/InstrumentDetail'
 
+import SampleList from '@/components/lab/SampleList'
+
 import DatapointCreate from '@/components/datapoints/DatapointCreate'
 
 Vue.use(Router)
@@ -62,6 +64,11 @@ export default new Router({
       path: '/myprojects/:id/data/instruments',
       name: 'InstrumentList',
       component: InstrumentList
+    },
+    {
+      path: '/myprojects/:id/data/samples',
+      name: 'SampleList',
+      component: SampleList
     },
     {
       path: '/myprojects/:id/data/add',
