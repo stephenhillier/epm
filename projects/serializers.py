@@ -26,12 +26,13 @@ class DataPointSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField()
     project_id = serializers.ReadOnlyField()
     soil_layers = SoilLayerSerializer(many=True, read_only=True)
+    soil_samples = SoilSampleSerializer(many=True, read_only=True)
     latlng = serializers.ReadOnlyField()
     location = PointField()
 
     class Meta:
         model = DataPoint
-        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'location', 'latlng', 'name', 'soil_layers')
+        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'location', 'latlng', 'name', 'soil_layers', 'soil_samples')
 
 
 class ProjectSerializer(serializers.ModelSerializer):

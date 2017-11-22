@@ -35,7 +35,7 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('project-detail', kwargs={'project': self.id})
 
-    
+    # not currently used
     def get_testholes(self):
         """
         Iterable list of all testhole objects

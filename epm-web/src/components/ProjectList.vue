@@ -101,6 +101,9 @@
           { text: 'Client', value: 'client' }
         ]
       }
+    },
+    created () {
+      this.$store.dispatch('loadProjects')
     }
   }
 </script>

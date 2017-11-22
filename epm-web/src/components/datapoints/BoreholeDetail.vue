@@ -82,10 +82,11 @@
                   v-bind:pagination.sync="boreholeSamplesPagination"
                   class='elevation-1'>
               <template slot='items' scope='props'>
-                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.name }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.sample_name }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_from }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_to }}</td>
-                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.get_uscs_display }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.date }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.field_tech }}</td>
               </template>
               </v-data-table>
           </v-card>    
@@ -113,8 +114,8 @@
         },
         soilLayersSearch: '',
         soilLayersHeaders: [
-          { text: 'Depth from', value: 'depth_from', align: 'left', sortable: false },
-          { text: 'Depth to', value: 'depth_to', align: 'left', sortable: false },
+          { text: 'Depth from (m)', value: 'depth_from', align: 'left', sortable: false },
+          { text: 'Depth to (m)', value: 'depth_to', align: 'left', sortable: false },
           { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false }
         ],
         boreholeSamplesPagination: {
@@ -122,10 +123,11 @@
         },
         boreholeSamplesSearch: '',
         boreholeSamplesHeaders: [
-          { text: 'Name', value: 'name', align: 'left', sortable: false },
-          { text: 'Depth from', value: 'depth_from', align: 'left', sortable: false },
-          { text: 'Depth to', value: 'depth_to', align: 'left', sortable: false },
-          { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false }
+          { text: 'Name', value: 'sample_name', align: 'left', sortable: false },
+          { text: 'Depth from (m)', value: 'depth_from', align: 'left', sortable: false },
+          { text: 'Depth to (m)', value: 'depth_to', align: 'left', sortable: false },
+          { text: 'Date', value: 'date', align: 'left', sortable: false },
+          { text: 'Field tech', value: 'field_tech', align: 'left', sortable: false }
         ]
       }
     },
@@ -154,23 +156,11 @@
         }
       },
       boreholeSamples () {
-        var samples = [
-          {
-            id: 1,
-            name: 'SA1',
-            depth_from: 2.1,
-            depth_to: 2.4,
-            get_uscs_display: 'GP'
-          },
-          {
-            id: 2,
-            name: 'SA2',
-            depth_from: 3.1,
-            depth_to: 3.3,
-            get_uscs_display: 'SP'
-          }
-        ]
-        return samples
+        if (!this.borehole) {
+          return []
+        } else {
+          return this.borehole.soil_samples
+        }
       },
       boreholeSummary () {
         if (!this.borehole) {
