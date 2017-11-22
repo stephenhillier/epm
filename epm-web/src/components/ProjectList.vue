@@ -23,7 +23,15 @@
       <v-layout row wrap mb-3>
         <v-flex xs12 md10>
             <v-card>
-              <v-card-title dense class='subheader primary info--text'>All projects:</v-card-title>
+              <v-card-title dense class='subheader primary info--text'>All projects:
+                <v-spacer></v-spacer>
+                <v-chip class="secondary white--text hidden-sm-and-down">
+                  <v-avatar>
+                    <v-icon>new_releases</v-icon>
+                  </v-avatar>
+                  Tip: the map shows projects that have data points!
+                </v-chip>
+              </v-card-title>
                 <v-data-table
                     v-bind:headers='headers'
                     v-bind:items='projects'
