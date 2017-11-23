@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{% static "projects/img/apple-icon.png" %}">-->
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Earthworks QC</title>
+    <title>Earthworks PM</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -31,7 +31,7 @@
 					<span class="navbar-toggler-bar"></span>
 					<span class="navbar-toggler-bar"></span>
 	            </button>
-				<a class="navbar-brand" href="/">Earthworks QC</a>
+				<a class="navbar-brand" href="/"><img src="{% static 'projects/epm.png' %}" height=36 alt="Earthworks PM"></a>
 				
 			</div>
 	        <div class="collapse navbar-collapse" id="navbarToggler">
@@ -51,8 +51,8 @@
 			<div class="filter"></div>
 			<div class="container">
 			    <div class="motto text-center">
-                    <h2>Earthworks QC: for world class projects</h2>
-                    <h3 style="padding-bottom:20px">Quality control solutions for construction professionals and engineers</h3>
+                    <h2>Earthworks PM: for world class projects</h2>
+                    <h3 style="padding-bottom:20px">Data management for engineers and geoprofessionals</h3>
                     <a href="#details" class="btn btn-danger btn-round">Get Started</a>
 			    </div>
 			</div>
@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         <h2 class="title">Organize your projects</h2>
-                        <h5 class="description">Earthworks QC helps you organize your quality control so you can focus on getting the job done. Manage your construction materials, specifications and testing, and issue reports with the click of a button.</h5>
+                        <h5 class="description">Earthworks PM helps you organize your soil data so you can focus on your clients. Manage your drilling projects, instrumentation data and lab testing, and issue reports with the click of a button.</h5>
                         <br>
                         <a href="#sayhello" class="btn btn-danger btn-round">Find out more</a>
                     </div>
@@ -77,7 +77,7 @@
 							</div>
 							<div class="description">
 								<h4 class="info-title">Anywhere</h4>
-								<p class="description">Get quality control test results anywhere with our mobile-friendly applications.</p>
+								<p class="description">Access your data from the office or on-site in real-time with our mobile-friendly applications.</p>
 								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 							</div>
 							<div class="description">
 								<h4 class="info-title">Visualize Your Projects</h4>
-								<p>Map sampling and testing locations, even across projects.</p>
+								<p>Map drilling, sampling and testing locations, even across projects.</p>
 								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
 						</div>
@@ -113,7 +113,7 @@
 							</div>
 							<div class="description">
 								<h4 class="info-title">Flexible</h4>
-								<p>From small projects to massive civil works, we have a solution tailored for you.</p>
+								<p>Whether you work on small projects or massive civil works, we have a solution tailored for you.</p>
 								<!--<a href="#sayhello" class="btn btn-link btn-success">See more</a>-->
 							</div>
 							<a name="sayhello"></a></div>
@@ -135,7 +135,7 @@
 										</div>
 									</div>
 							{% endif %}
-							<h2 class="text-center">Earthworks QC is coming soon</h2>
+							<h2 class="text-center">Earthworks PM is coming soon</h2>
 							<h3 class="text-center">In the meantime, send us a quick hello!</h3>
                             <form class="contact-form" method='POST' action=''> {% csrf_token %}
 								<div class="row">
@@ -164,7 +164,7 @@
 										</div>
                                     </div>
                                 </div>
-								<label for="id_message">Tell us what you think! Why not let us know what quality control or progress reports you spend the most time on?</label>
+								<label for="id_message">Tell us what you think!</label>
 								{{ form.message.errors }}
                                 {{ form.message }}
                                 <div class="row">
@@ -192,7 +192,7 @@
 				</nav>
 				<div class="credits ml-auto">
 					<span class="copyright">
-						© <script>document.write(new Date().getFullYear())</script> Earthworks QC
+						© <script>document.write(new Date().getFullYear())</script> Earthworks PM
 					</span>
 				</div>
 			</div>

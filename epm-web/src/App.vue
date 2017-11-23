@@ -23,7 +23,13 @@
         <v-list-tile v-for="item in projectItems" :key="item.title" router :to="item.link">
           <v-list-tile-content class="primary--text">{{ item.title }}</v-list-tile-content>
         </v-list-tile>
-        </v-list>
+      </v-list>
+      <v-divider class="hidden-sm-and-up"></v-divider>
+      <v-list>
+        <v-list-tile class="hidden-sm-and-up">
+          <v-list-tile-content class="primary--text" router to="/accounts/logout/">Log out</v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed class="info">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -32,9 +38,6 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat class="primary--text">
-          <v-icon>person</v-icon>
-        </v-btn>
         <v-btn flat class="primary--text" href="/accounts/logout/">
           <v-icon>exit_to_app</v-icon></a>
         </v-btn>
