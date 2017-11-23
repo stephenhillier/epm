@@ -85,7 +85,7 @@
         }
         var instrumentSummary = [
           { title: 'Instrument name: ', value: this.instrument.name },
-          { title: 'Type: ', value: this.datatype },
+          { title: 'Type: ', value: this.instrument.get_data_type_display },
           { title: 'Project name: ', value: this.project.name },
           { title: 'Project number: ', value: this.project.number },
           { title: 'Date: ', value: this.instrument.date },
@@ -94,13 +94,6 @@
           { title: 'Longitude: ', value: this.instrumentLocation[1] }
         ]
         return instrumentSummary
-      },
-      datatype () {
-        const types = this.$store.getters.getDatatypeOptions
-        if (!types) {
-          return this.instrument.data_type
-        }
-        return types.filter(datatype => datatype.value === this.instrument.data_type).display_name
       },
       instrumentLocation () {
         if (!this.instrument.location) {
@@ -112,7 +105,6 @@
     created () {
       this.$store.dispatch('loadCurrentProject', this.$route.params.id)
       this.$store.dispatch('loadInstrumentData', { id: this.$route.params.id, instr: this.$route.params.instr })
-      this.$store.dispatch('loadDatatypeOptions', this.$route.params.id)
     }
   }
 </script>

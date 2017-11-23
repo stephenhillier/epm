@@ -32,7 +32,7 @@ class DataPointSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DataPoint
-        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'location', 'latlng', 'name', 'soil_layers', 'soil_samples')
+        fields = ('id', 'project_id', 'data_type', 'date', 'number', 'field_tech', 'location', 'latlng', 'name', 'soil_layers', 'soil_samples', 'get_data_type_display')
 
 
 class ProjectSerializer(serializers.ModelSerializer):
