@@ -63,7 +63,7 @@
                         <v-card-text class="grey--text text--darken-3">
                           <p class="subheading primary--text"><v-icon secondary class="pr-2">new_releases</v-icon>Getting started with Earthworks PM</p>
                           <p>Earthworks PM is a powerful data management platform designed to be intuitive and easy to use. 
-                            Data can include boreholes, instrumentation, soil/aggregate samples, and lab testing data.</p>
+                            Data can include boreholes, instrumentation, soil/aggregate samples, and lab testing data, all organized by project</p>
                           <p>Most of the features of Earthworks PM are accessible through the main menu on the left sidebar. 
                             To get started, use the Project List to select a project. From there, you can also create a new project.
                           </p>

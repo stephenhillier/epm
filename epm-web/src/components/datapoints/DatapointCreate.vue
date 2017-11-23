@@ -129,7 +129,7 @@
                       <v-flex xs12 md6 offset-md1>
                         <v-card class="text-xs-center">
 
-                          <v-map style="height:28rem" :zoom=11 :center="mapCenter">
+                          <v-map style="height:28rem; z-index: 1" :zoom=11 :center="mapCenter">
                             <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
                               <v-marker
                               v-if="latLngAvailable" 
