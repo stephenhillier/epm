@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
-const api = 'http://localhost:8000/projects/api'
+const api = 'https://earthworkspm.com/projects/api'
 
 Vue.use(Vuex)
 
