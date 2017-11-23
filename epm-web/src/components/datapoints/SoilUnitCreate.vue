@@ -115,7 +115,6 @@
             uscs: this.uscs.value
           }
         }
-        console.log(soilLayer)
         this.$store.dispatch('addSoilLayer', soilLayer)
       }
     },

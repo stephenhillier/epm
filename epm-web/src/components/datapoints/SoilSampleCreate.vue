@@ -152,7 +152,6 @@
             field_tech: this.fieldTech
           }
         }
-        console.log(soilSample)
         this.$store.dispatch('addSoilSample', soilSample)
       }
     }

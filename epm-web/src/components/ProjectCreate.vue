@@ -121,7 +121,6 @@
           client: this.client,
           location: this.location
         }
-        console.log(projectData)
         this.$store.dispatch('addNewProject', projectData)
       }
     }

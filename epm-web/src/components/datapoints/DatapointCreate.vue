@@ -237,7 +237,6 @@
             longitude: this.lng
           }
         }
-        console.log(datapoint)
         this.$store.dispatch('addDatapoint', datapoint)
       },
       latUp () {

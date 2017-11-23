@@ -71,7 +71,6 @@ export const store = new Vuex.Store({
       commit('setLoading', true)
       axios.get(api + '/projects/')
         .then((data) => {
-          console.log(data)
           const projects = []
           const obj = data.data
           for (let item in obj) {
@@ -109,7 +108,6 @@ export const store = new Vuex.Store({
             client: obj.client,
             datapoints: obj.datapoints
           }
-          console.log('SET PROJECT TO ' + projectData.id)
           commit('setCurrentProject', projectData)
           commit('setLoading', false)
         })
@@ -120,7 +118,6 @@ export const store = new Vuex.Store({
     },
     loadProjectData ({commit}, projectId) {
       commit('setLoading', true)
-      console.log(api + '/projects/' + projectId + '/data/')
       axios.get(api + '/projects/' + projectId + '/data/')
       .then(
         response => {
@@ -170,7 +167,6 @@ export const store = new Vuex.Store({
           const boreholeResponse = response.data
           commit('setCurrentBorehole', boreholeResponse)
           commit('setLoading', false)
-          console.log(boreholeResponse)
         }
       )
       .catch(
@@ -205,7 +201,6 @@ export const store = new Vuex.Store({
       axios.options(api + '/projects/' + projectId + '/data/')
       .then(
         response => {
-          console.log(response)
           const datatypes = response.data.actions.POST.data_type.choices
           const options = []
           for (let item in datatypes) {
@@ -216,7 +211,6 @@ export const store = new Vuex.Store({
           }
           commit('setLoading', false)
           commit('setDatatypeOptions', options)
-          console.log(options)
         }
       )
       .catch(
@@ -228,7 +222,6 @@ export const store = new Vuex.Store({
       )
     },
     loadUscsOptions ({commit}, payload) {
-      console.log(api + '/projects/' + payload.project_id + '/data/' + payload.borehole_id + '/soil_layers/')
       axios.options(api + '/projects/' + payload.project_id + '/data/' + payload.borehole_id + '/soil_layers/')
       .then(
         response => {
@@ -268,7 +261,6 @@ export const store = new Vuex.Store({
     },
     addSoilLayer ({commit}, payload) {
       commit('setLoading', true)
-      console.log(api + '/projects/' + payload.project_id + '/data/' + payload.data.datapoint + '/soil_layers/')
       axios.post(api + '/projects/' + payload.project_id + '/data/' + payload.data.datapoint + '/soil_layers/', payload.data)
       .then(
         response => {
@@ -306,7 +298,6 @@ export const store = new Vuex.Store({
       axios.get(api + '/projects/' + payload.id + '/data/')
       .then(
         response => {
-          console.log(response)
           commit('setLoading', false)
           var data = response.data
           var sampleList = []
@@ -317,7 +308,6 @@ export const store = new Vuex.Store({
               }
             }
           }
-          console.log(sampleList)
           commit('setSampleList', sampleList)
         }
       )
