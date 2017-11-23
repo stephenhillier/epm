@@ -19,7 +19,8 @@ export const store = new Vuex.Store({
     currentBorehole: {},
     projectSamples: [],
     uscsOptions: [{ value: '', display_name: '' }],
-    sampleList: []
+    sampleList: [],
+    currentInstrument: {}
   },
   mutations: {
     loadRetrievedProjects (state, payload) {
@@ -54,6 +55,9 @@ export const store = new Vuex.Store({
     },
     setCurrentBorehole (state, payload) {
       state.currentBorehole = payload
+    },
+    setCurrentInstrument (state, payload) {
+      state.currentInstrument = payload
     },
     setUscsOptions (state, payload) {
       state.uscsOptions = payload
@@ -175,6 +179,23 @@ export const store = new Vuex.Store({
           commit('setError', error)
           console.log(error)
         })
+    },
+    loadInstrumentData ({commit}, payload) {
+      commit('setLoading', true)
+      axios.get(api + '/projects/' + payload.id + '/data/' + payload.instr + '/')
+      .then(
+        response => {
+          commit('setCurrentInstrument', response.data)
+          commit('setLoading', false)
+        }
+      )
+      .catch(
+        error => {
+          commit('setLoading', false)
+          commit('setError', error)
+          console.log(error)
+        }
+      )
     },
     changeUser ({commit}, payload) {
       commit('setUser', payload)
@@ -329,6 +350,9 @@ export const store = new Vuex.Store({
     },
     getSoilSamples (state) {
       return state.sampleList
+    },
+    getInstrumentData (state) {
+      return state.currentInstrument
     }
   }
 })

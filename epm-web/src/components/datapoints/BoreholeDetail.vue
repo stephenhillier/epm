@@ -179,7 +179,7 @@
       },
       boreholeLocation () {
         if (!this.borehole.location) {
-          return []
+          return [0, 0]
         } else {
           return [this.borehole.location.latitude, this.borehole.location.longitude]
         }

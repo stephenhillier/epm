@@ -115,24 +115,6 @@
           }
           return boreholes
         }
-      },
-      boreholeCount () {
-        var count = 0
-        for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type === 'TH') {
-            count += 1
-          }
-        }
-        return count
-      },
-      instrumentCount () {
-        var count = 0
-        for (let obj in this.projectData) {
-          if (this.projectData[obj].data_type !== 'TH') {
-            count += 1
-          }
-        }
-        return count
       }
     },
     created () {

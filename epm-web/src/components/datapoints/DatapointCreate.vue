@@ -211,7 +211,7 @@
       },
       datatypeOptions () {
         const types = this.$store.getters.getDatatypeOptions
-        if (types === null) {
+        if (!types) {
           return [{ display: 'no data yet', value: 'BH' }]
         } else {
           return types
