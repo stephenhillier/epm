@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
-const api = 'https://earthworkspm.com/projects/api'
+const api = 'https://www.earthworksqc.com/projects/api'
 
 Vue.use(Vuex)
 
