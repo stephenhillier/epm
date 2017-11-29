@@ -52,7 +52,8 @@
                             </v-list-tile>
                           </v-list>
                         </v-card-text>
-                    </v-card></v-flex>
+                    </v-card>
+                  </v-flex>
                 </v-layout>
                 <v-layout row wrap>
                   <v-flex class="pa-2">
@@ -69,7 +70,8 @@
                           </p>
                           <p>Once a project has been selected, you can start adding data. For data points like boreholes and instrumentation that have a specific location, you will be prompted for coordinates (WGS84).</p>
                         </v-card-text>
-                    </v-card></v-flex>
+                    </v-card>
+                  </v-flex>
                 </v-layout>
             </v-flex>
             <v-flex md3 class="hidden-xs-only pa-2" v-if="latestProjects">

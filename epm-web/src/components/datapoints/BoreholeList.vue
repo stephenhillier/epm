@@ -4,7 +4,7 @@
     <v-flex xs12 md10>
       <v-card>
         <v-map style="height:16rem; z-index: 1" :zoom=11 :center="[48.413220, -123.419482]">
-          <v-tilelayer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></v-tilelayer>
+          <v-tilelayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></v-tilelayer>
           <v-marker 
           v-for="point in boreholes"
           v-if="point.location"
