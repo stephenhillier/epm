@@ -30,10 +30,11 @@
                               </v-list-tile-avatar>
                               <v-list-tile-content>
                                 <v-list-tile-title class="primary--text">
-                                  Review <span class="caption accent--text">(feature coming soon!)</span>
+                                  Review
                                 </v-list-tile-title>
                                 <v-list-tile-sub-title class="grey--text text--darken-2">
-                                  You have 6 new items to review.
+                                  You have 6 new items to review.<br>
+                                  <span class="caption accent--text">(feature coming soon!)</span>
                                 </v-list-tile-sub-title>
                               </v-list-tile-content>
                             </v-list-tile>
@@ -43,14 +44,16 @@
                               </v-list-tile-avatar>
                               <v-list-tile-content>
                                 <v-list-tile-title class="primary--text">
-                                  New projects <span class="caption accent--text">(feature coming soon!)</span>
+                                  New projects
                                 </v-list-tile-title>
                                 <v-list-tile-sub-title class="grey--text text--darken-2">
-                                  You've been added to 3 new projects.
+                                  You've been added to 3 new projects.<br>
+                                  <span class="caption accent--text">(feature coming soon!)</span>
                                 </v-list-tile-sub-title>
                               </v-list-tile-content>
                             </v-list-tile>
                           </v-list>
+                          <v-btn secondary to="/myprojects/">Project List</v-btn> 
                         </v-card-text>
                     </v-card>
                   </v-flex>
@@ -64,7 +67,7 @@
                         <v-card-text class="grey--text text--darken-3">
                           <p class="subheading primary--text"><v-icon secondary class="pr-2">new_releases</v-icon>Getting started with Earthworks PM</p>
                           <p>Earthworks PM is a powerful data management platform designed to be intuitive and easy to use. 
-                            Data can include boreholes, instrumentation, soil/aggregate samples, and lab testing data, all organized by project.</p>
+                            Boreholes, instrumentation, soil/aggregate samples, and lab testing data are all organized by project.</p>
                           <p>Most of the features of Earthworks PM are accessible through the main menu on the left sidebar. 
                             To get started, use the Project List to select a project. From there, you can also create a new project.
                           </p>
