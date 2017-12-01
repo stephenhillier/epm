@@ -143,8 +143,11 @@
       borehole () {
         const borehole = this.$store.getters.getBoreholeData
         if (!borehole) {
-          return {location: {}}
+          return { location: { latitude: 0, longitude: 0 } }
         } else {
+          if (!borehole.location) {
+            borehole.location = { location: { latitude: 0, longitude: 0 } }
+          }
           return borehole
         }
       },

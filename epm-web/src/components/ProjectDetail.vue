@@ -119,7 +119,7 @@
       },
       projectSummary () {
         if (!this.project) {
-          return
+          return {}
         }
         let projectSummary = [
           { title: 'Project name: ', value: this.project.name },
@@ -135,7 +135,7 @@
       projectData () {
         var data = this.$store.getters.projectData
         if (!data) {
-          return []
+          return [ { location: {} } ]
         } else {
           return data
         }
