@@ -33,7 +33,5 @@ new Vue({
       console.log('CSRF token not found')
     }
     this.$store.dispatch('loadProjects')
-    let username = document.querySelector('meta[name="user"]').content
-    this.$store.dispatch('changeUser', username)
   }
 })

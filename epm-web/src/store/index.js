@@ -4,17 +4,19 @@ import axios from 'axios'
 import router from '../router'
 
 const api = 'http://localhost:8000/projects/api'
+const loginApi = 'http://localhost:8000/auth'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
     loading: false,
-    user: null,
+    error: '',
+    currentUser: null,
     myProjects: [],
     currentProject: {},
     message: null,
-    projectData: null,
+    projectData: [],
     datatypeOptions: [],
     currentBorehole: {},
     projectSamples: [],
@@ -27,7 +29,7 @@ export const store = new Vuex.Store({
       state.myProjects = payload
     },
     setUser (state, payload) {
-      state.user = payload
+      state.currentUser = payload
     },
     setProjectData (state, payload) {
       state.projectData = payload
@@ -39,7 +41,7 @@ export const store = new Vuex.Store({
       state.error = payload
     },
     clearError (state) {
-      state.error = null
+      state.error = ''
     },
     setCurrentProject (state, payload) {
       state.currentProject = payload
@@ -67,6 +69,28 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    resetError ({commit}) {
+      commit('clearError')
+    },
+    userLogin ({commit}, credentials) {
+      commit('clearError')
+      axios.post(loginApi + '/login/', credentials)
+      .then((response) => {
+        var token = response.data.token
+        var username = response.data.user.username
+        commit('setUser', username)
+        console.log('User: ' + username + ', token: ' + token)
+        localStorage.setItem('user', username)
+        localStorage.setItem('token', token)
+        axios.defaults.headers.common = { 'Authorization': 'JWT ' + token }
+        this.dispatch('loadProjects')
+        router.push('/')
+      })
+      .catch((error) => {
+        commit('setError', 'Invalid username or password.')
+        console.log(error)
+      })
+    },
     loadProjects ({commit}) {
       commit('setLoading', true)
       axios.get(api + '/projects/')
@@ -330,7 +354,10 @@ export const store = new Vuex.Store({
       return state.currentBorehole
     },
     getUser (state) {
-      return state.user
+      return state.currentUser
+    },
+    getError (state) {
+      return state.error
     },
     getDatatypeOptions (state) {
       return state.datatypeOptions

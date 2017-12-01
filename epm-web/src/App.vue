@@ -5,7 +5,8 @@
     clipped
     enable-resize-watcher
     height="100%"
-    v-model="drawer">
+    v-model="drawer"
+    v-if="user">
       <v-list class="mt-3">
         <v-list-tile v-for="item in menuItems" :key="item.title" router :to="item.link">
           <v-list-tile-action>
@@ -32,14 +33,17 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed class="info">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="user" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title style="margin-bottom: -10px">
         <img src="/static/projects/epm.png" height="30" style="margin-bottom: -3px">
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat class="primary--text" href="/accounts/logout/">
-          <v-icon>exit_to_app</v-icon></a>
+        <v-btn v-if="!user" flat class="primary--text" router to="/login">
+          Log in
+        </v-btn>
+        <v-btn v-if="user" flat class="primary--text" href="/accounts/logout/">
+          Log out
         </v-btn>
       </v-toolbar-items>
 
@@ -60,6 +64,9 @@
       }
     },
     computed: {
+      user () {
+        return this.$store.getters.getUser
+      },
       menuItems () {
         let menuItems = [
           { title: 'Home', icon: 'dashboard', link: '/' },

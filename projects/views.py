@@ -47,7 +47,7 @@ class APISoilSampleViewSet(viewsets.ModelViewSet):
         serializer.save(datapoint_id=self.kwargs['datapoint'])
 
 
-class ProjectsHomeView(LoginRequiredMixin, TemplateView):
+class ProjectsHomeView(TemplateView):
     template_name = "projects/home.html"
 
 #    def get_context_data(self, **kwargs):

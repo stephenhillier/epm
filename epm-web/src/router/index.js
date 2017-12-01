@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import AuthGuard from './auth-guard'
+
+import UserLogin from '@/components/auth/UserLogin'
 
 import ProjectList from '@/components/ProjectList'
 import ProjectDetail from '@/components/ProjectDetail'
@@ -28,63 +31,80 @@ export default new Router({
     {
       path: '/',
       name: 'EarthworksPM',
-      component: Home
+      component: Home,
+      beforeEnter: AuthGuard
+    },
+    {
+      path: '/login',
+      name: 'UserLogin',
+      component: UserLogin
     },
     {
       path: '/newproject',
       name: 'ProjectCreate',
-      component: ProjectCreate
+      component: ProjectCreate,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/boreholes/:bh/newsample',
       name: 'SoilSampleCreate',
-      component: SoilSampleCreate
+      component: SoilSampleCreate,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/boreholes/:bh/newlayer',
       name: 'SoilUnitCreate',
-      component: SoilUnitCreate
+      component: SoilUnitCreate,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/boreholes/:bh',
       name: 'BoreholeDetail',
-      component: BoreholeDetail
+      component: BoreholeDetail,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/boreholes',
       name: 'BoreholeList',
-      component: BoreholeList
+      component: BoreholeList,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/instruments/:instr',
       name: 'InstrumentDetail',
-      component: InstrumentDetail
+      component: InstrumentDetail,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/instruments',
       name: 'InstrumentList',
-      component: InstrumentList
+      component: InstrumentList,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/samples',
       name: 'SampleList',
-      component: SampleList
+      component: SampleList,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id/data/add',
       name: 'DatapointCreate',
-      component: DatapointCreate
+      component: DatapointCreate,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects/:id',
       name: 'ProjectDetail',
       props: true,
-      component: ProjectDetail
+      component: ProjectDetail,
+      beforeEnter: AuthGuard
     },
     {
       path: '/myprojects',
       name: 'ProjectList',
-      component: ProjectList
+      component: ProjectList,
+      beforeEnter: AuthGuard
     }
   ]
 })
