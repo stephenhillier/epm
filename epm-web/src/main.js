@@ -26,12 +26,12 @@ new Vue({
   template: '<App/>',
   components: { App },
   created () {
-    let token = document.querySelector('meta[name="csrf-token"]')
+    let token = localStorage.getItem('token')
     if (token) {
-      axios.defaults.headers.common['X-CSRFToken'] = token.content
-    } else {
-      console.log('CSRF token not found')
+      let name = localStorage.getItem('user')
+      axios.defaults.headers.common = { 'Authorization': 'JWT ' + token }
+      this.$store.dispatch('changeUser', name)
+      this.$store.dispatch('loadProjects')
     }
-    this.$store.dispatch('loadProjects')
   }
 })
