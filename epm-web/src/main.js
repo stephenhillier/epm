@@ -28,10 +28,17 @@ new Vue({
   created () {
     let token = localStorage.getItem('token')
     if (token) {
-      let name = localStorage.getItem('user')
-      axios.defaults.headers.common = { 'Authorization': 'JWT ' + token }
-      this.$store.dispatch('changeUser', name)
-      this.$store.dispatch('loadProjects')
+      axios.post('https://www.earthworksqc.com/refresh-token/', token)
+      .then(
+        response => {
+          if (response.data.token) {
+            let name = localStorage.getItem('user')
+            axios.defaults.headers.common = { 'Authorization': 'JWT ' + response.data.token }
+            this.$store.dispatch('changeUser', name)
+            this.$store.dispatch('loadProjects')
+          }
+        }
+      )
     }
   }
 })
