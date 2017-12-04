@@ -77,7 +77,7 @@
                   </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex md3 class="hidden-xs-only pa-2" v-if="latestProjects">
+            <v-flex md3 class="hidden-xs-only pa-2" v-if="latestProjects.length">
               <v-card>
                 <v-card-title dark class="primary info--text">
                   Latest projects:
@@ -104,6 +104,7 @@
         return this.$store.getters.getUser
       },
       latestProjects () {
+        console.log(this.$store.getters.latestProjects)
         return this.$store.getters.latestProjects
       }
     },
@@ -112,6 +113,9 @@
     },
     mounted () {
       this.clearProject()
+      if (!this.$store.getters.myProjects) {
+        this.$store.dispatch('loadProjects')
+      }
     },
     methods: {
       clearProject () {

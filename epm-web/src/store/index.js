@@ -3,8 +3,11 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
-const api = 'https://www.earthworksqc.com/projects/api'
-const loginApi = 'https://www.earthworksqc.com/auth'
+/* const api = 'https://www.earthworksqc.com/projects/api'
+const loginApi = 'https://www.earthworksqc.com/auth' */
+
+const api = 'http://localhost:8000/projects/api'
+const loginApi = 'http://localhost:8000/auth'
 
 Vue.use(Vuex)
 
@@ -76,12 +79,16 @@ export const store = new Vuex.Store({
       commit('clearError')
       axios.post(loginApi + '/login/', credentials)
       .then((response) => {
-        var token = response.data.token
-        var username = response.data.user.username
+        const token = response.data.token
+        const username = response.data.user.username
         commit('setUser', username)
         console.log('User: ' + username + ', token: ' + token)
         localStorage.setItem('user', username)
         localStorage.setItem('token', token)
+        const base64Url = token.split('.')[1]
+        const base64 = base64Url.replace('-', '+').replace('_', '/')
+        const exp = JSON.parse(window.atob(base64)).exp
+        localStorage.setItem('tokenExpiry', exp)
         axios.defaults.headers.common = { 'Authorization': 'JWT ' + token }
         this.dispatch('loadProjects')
         router.push('/')
