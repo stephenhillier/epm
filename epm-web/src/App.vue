@@ -28,7 +28,7 @@
       <v-divider class="hidden-sm-and-up"></v-divider>
       <v-list>
         <v-list-tile class="hidden-sm-and-up">
-          <v-list-tile-content class="primary--text" router to="/accounts/logout/">Log out</v-list-tile-content>
+          <v-list-tile-content class="primary--text" @click="handleLogout">Log out</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -42,7 +42,7 @@
         <v-btn v-if="!user" flat class="primary--text" router to="/login">
           Log in
         </v-btn>
-        <v-btn v-if="user" flat class="primary--text" href="/accounts/logout/">
+        <v-btn v-if="user" flat class="primary--text" @click="handleLogout">
           Log out
         </v-btn>
       </v-toolbar-items>
@@ -94,6 +94,11 @@
           ]
         }
         return projectItems
+      }
+    },
+    methods: {
+      handleLogout () {
+        this.$store.dispatch('userLogout')
       }
     }
   }

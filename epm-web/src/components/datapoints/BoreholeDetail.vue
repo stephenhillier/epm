@@ -19,8 +19,7 @@
                       </v-flex>
                       <v-flex xs12 md6 offset-md1>
                         <v-card v-if="boreholeLocation">
-
-                            <v-map style="height:28rem; z-index: 1" :zoom=11 :center="boreholeLocation">
+                            <v-map v-if="boreholeLocation" style="height:28rem; z-index: 1" :zoom=11 :center="boreholeLocation">
                               <v-tilelayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></v-tilelayer>
                                 <v-marker 
                                 v-if="boreholeLocation"
@@ -143,10 +142,10 @@
       borehole () {
         const borehole = this.$store.getters.getBoreholeData
         if (!borehole) {
-          return { location: { latitude: 0, longitude: 0 } }
+          return { location: {} }
         } else {
           if (!borehole.location) {
-            borehole.location = { location: { latitude: 0, longitude: 0 } }
+            borehole.location = { location: {} }
           }
           return borehole
         }
@@ -182,7 +181,7 @@
       },
       boreholeLocation () {
         if (!this.borehole.location) {
-          return [0, 0]
+          return [48.413220, -123.419482]
         } else {
           return [this.borehole.location.latitude, this.borehole.location.longitude]
         }

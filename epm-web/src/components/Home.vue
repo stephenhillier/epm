@@ -110,12 +110,13 @@
     },
     created () {
       this.clearProject()
-    },
-    mounted () {
-      this.clearProject()
       if (!this.$store.getters.myProjects) {
         this.$store.dispatch('loadProjects')
       }
+    },
+    mounted () {
+      this.clearProject()
+      this.$store.dispatch('loadProjects')
     },
     methods: {
       clearProject () {
