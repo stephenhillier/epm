@@ -15,7 +15,7 @@
         <v-layout row wrap>
             <v-flex xs12 md8>
                 <v-layout row wrap>
-                  <v-flex class="pb-2">
+                  <v-flex class="pa-2">
                     <v-card>
                         <v-card-title dark class="primary info--text body-2">
                             Welcome, {{ user }}!
@@ -59,7 +59,7 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
-                  <v-flex class="pb-2">
+                  <v-flex class="pa-2">
                     <v-card>
                         <v-card-title dark class="primary info--text body-2">
                             Quick start
