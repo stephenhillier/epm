@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout>
-          <v-flex xs12 md11 hidden-xs-only hidden-sm-only class="pa-2">
+          <v-flex xs12 md11 hidden-xs-only hidden-sm-only class="pb-2">
             <v-card tile>
           <v-parallax src="/static/projects/roundabout.jpg" height=250 md10>
               <v-layout row><v-spacer></v-spacer></v-layout>
@@ -15,7 +15,7 @@
         <v-layout row wrap>
             <v-flex xs12 md8>
                 <v-layout row wrap>
-                  <v-flex class="pa-2">
+                  <v-flex class="pb-2">
                     <v-card>
                         <v-card-title dark class="primary info--text body-2">
                             Welcome, {{ user }}!
@@ -59,7 +59,7 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
-                  <v-flex class="pa-2">
+                  <v-flex class="pb-2">
                     <v-card>
                         <v-card-title dark class="primary info--text body-2">
                             Quick start
@@ -77,7 +77,7 @@
                   </v-flex>
                 </v-layout>
             </v-flex>
-            <v-flex md3 class="hidden-xs-only pa-2" v-if="latestProjects.length">
+            <v-flex md3 class="hidden-xs-only pl-2 pb-2" v-if="latestProjects.length">
               <v-card>
                 <v-card-title dark class="primary info--text">
                   Latest projects:
