@@ -18,7 +18,7 @@ export const store = new Vuex.Store({
     message: null,
     projectData: [],
     datatypeOptions: [],
-    currentBorehole: {},
+    currentBorehole: { location: { latitude: 0, longitude: 0 } },
     projectSamples: [],
     uscsOptions: [{ value: '', display_name: '' }],
     sampleList: [],
