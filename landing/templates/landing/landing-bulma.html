@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Earthworks PM</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <style type="text/css">
+    .navbar-item.brand-text {
+      font-weight: 300;
+    }
+    html, body {
+      font-family: 'Open Sans', serif;
+      font-size: 16px;
+      line-height: 1.5;
+      height: 100%;
+      background: #ECF0F3;
+    }
+    </style>
+  </head>
+  <body>
+    
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="/">
+                <img src="{% static 'projects/epm.png' %}" style="margin-bottom: -7px" alt="Earthworks PM: engineering project data" height="28">
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+              <div class="navbar-end">
+                <a class="navbar-item is-active brand-text">
+                  Home
+                </a>
+                <a class="navbar-item brand-text">
+                  Features
+                </a>
+                <a class="navbar-item brand-text">
+                  Pricing
+                </a>
+                <div class="navbar-item field is-grouped">
+                  <p class="control">
+                    <a class="button is-small is-link is-outlined">
+                  Login
+                </a></p></div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      <section class="hero is-medium is-link">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Earthworks PM: for world class projects</h1>
+          <h2 class="subtitle">
+            intuitive, powerful data management for geotechnical professionals.
+          </h2>
+        </div>
+      </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        if ($navbarBurgers.length > 0) {
+          $navbarBurgers.forEach(function ($el) {
+            $el.addEventListener('click', function () {
+              var target = $el.dataset.target;
+              var $target = document.getElementById(target);
+              $el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+  </script>
+  <style>
+  .hero-image { 
+    background-image: url('{% static "landing/img/dam2.jpg" %}') ;
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: rgb(8, 65, 30);
+}
+  </style>
+  </body>
+</html>
