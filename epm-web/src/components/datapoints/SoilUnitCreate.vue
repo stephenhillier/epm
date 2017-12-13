@@ -63,6 +63,16 @@
                                 ></v-select>
                               </v-flex>
                           </v-layout>
+                            <v-layout row>
+                              <v-flex xs12 md10>
+                                  <v-text-field
+                                  name="description"
+                                  label="Description"
+                                  id="description"
+                                  v-model="description"
+                                  required></v-text-field>
+                              </v-flex>
+                          </v-layout>
                           <v-layout row>
                             <v-flex xs12 md6>
                               <v-btn secondary type="submit">Create</v-btn>
@@ -84,7 +94,8 @@
       return {
         depthFrom: '',
         depthTo: '',
-        uscs: ''
+        uscs: '',
+        description: ''
       }
     },
     computed: {
@@ -112,7 +123,8 @@
             datapoint: this.$route.params.bh,
             depth_from: this.depthFrom,
             depth_to: this.depthTo,
-            uscs: this.uscs.value
+            uscs: this.uscs.value,
+            description: this.description
           }
         }
         this.$store.dispatch('addSoilLayer', soilLayer)
