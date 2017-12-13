@@ -19,7 +19,7 @@ class SoilLayerSerializer(serializers.ModelSerializer):
     class Meta:
         model = SoilLayer
 
-        fields = ('id', 'datapoint_id', 'depth_from', 'depth_to', 'uscs', 'get_uscs_display')
+        fields = ('id', 'datapoint_id', 'depth_from', 'depth_to', 'uscs', 'get_uscs_display', 'description')
 
 
 class DataPointSerializer(serializers.ModelSerializer):
