@@ -57,6 +57,7 @@
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_from }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.depth_to }}</td>
                 <td class='text-xs-left grey--text text--darken-1'>{{ props.item.get_uscs_display }}</td>
+                <td class='text-xs-left grey--text text--darken-1'>{{ props.item.description }}</td>
               </template>
               </v-data-table>
           </v-card>    
@@ -115,7 +116,8 @@
         soilLayersHeaders: [
           { text: 'Depth from (m)', value: 'depth_from', align: 'left', sortable: false },
           { text: 'Depth to (m)', value: 'depth_to', align: 'left', sortable: false },
-          { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false }
+          { text: 'USCS', value: 'get_uscs_display', align: 'left', sortable: false },
+          { text: 'Description', value: 'description', align: 'left', sortable: false }
         ],
         boreholeSamplesPagination: {
           sortBy: 'depth_from'
