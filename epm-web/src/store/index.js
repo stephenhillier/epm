@@ -3,8 +3,11 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
-const api = 'https://www.earthworksqc.com/projects/api'
-const loginApi = 'https://www.earthworksqc.com/auth'
+/* const api = 'https://www.earthworksqc.com/projects/api'
+const loginApi = 'https://www.earthworksqc.com/auth' */
+
+const api = 'http://localhost:8000'
+const loginApi = 'http://localhost:8000/auth'
 
 Vue.use(Vuex)
 
