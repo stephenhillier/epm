@@ -17,7 +17,7 @@ This repository contains both the API server and the frontend website for Earthw
 ### PostgreSQL setup
 * Create a new postgres user (see [PostgreSQL docs](https://www.postgresql.org/docs/9.1/static/sql-createrole.html)) 
 * Create a new postgres database
-* Enter the command line for your database with ```pgsql -D your_database_name``` and run the command ```CREATE EXTENSION POSTGIS;```
+* Enter the command line for your database with ```psql -d your_database_name``` and run the command ```CREATE EXTENSION POSTGIS;```
 * Start the database server (on systemd Linux systems, run ```sudo systemctl enable postgresql``` and ```sudo systemctl start postgresql```)
 ### API server (Django) setup
 * Go to the root directory of the repo and setup database tables with ```python manage.py migrate```
