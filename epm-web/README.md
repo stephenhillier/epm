@@ -1,6 +1,14 @@
 # epm-web
 
-> Interactive engineering data
+> Front end site for the Earthworks PM engineering data management platform
+
+Run ```npm install``` within this folder to install dependencies.
+
+To load the frontend for development, you can add the dev server (localhost:8080) to ```CORS_WHITELIST``` in ```../eqc/settings.py```. Then use ```npm run dev``` from within the epm-web folder. Make sure the API server is running locally. 
+
+Alternatively, use ```npm run dev``` but serve the development ```index.html``` file with Django. It should load ```app.js``` that webpack builds for development. See ```../projects/templates/projects/home.html```.
+
+When running the API server locally, check that ```const api``` in ```src/vuex/index.js``` is equal to ```127.0.0.1:8000/projects/```. 
 
 ## Build Setup
 
@@ -17,5 +25,3 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
