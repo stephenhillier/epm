@@ -28,4 +28,4 @@ This repository contains both the API server and the frontend website for Earthw
 * Enter the epm-web folder from the repository root
 * run ```npm install``` to install dependencies
 * run ```npm run dev``` to run the development server
-* If you have trouble logging in or connecting to the API, make sure that ```CORS_WHITELIST``` in ```eqc/settings.py``` contains the localhost:8080 frontend dev server and that ```api``` and ```loginApi``` in ```epm-web/src/vuex/index.js``` are pointing to the local API server (localhost:8000).
+* If you have trouble logging in or connecting to the API, make sure that ```CORS_WHITELIST``` in ```eqc/settings.py``` contains the localhost:8080 frontend dev server and that ```api``` and ```loginApi``` in ```epm-web/src/store/index.js``` are pointing to the local API server (localhost:8000).
