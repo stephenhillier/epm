@@ -20,6 +20,12 @@ This repository contains both the API server and the frontend website for Earthw
 * Enter the command line for your database with ```psql -d your_database_name``` and run the command ```CREATE EXTENSION POSTGIS;```
 * Start the database server (on systemd Linux systems, run ```sudo systemctl enable postgresql``` and ```sudo systemctl start postgresql```)
 ### API server (Django) setup
+* Edit ```eqc/settings_secret.py.template``` with your database credentials. Generate a random secret key. You can generate a key with Python with:
+```
+>>> import random
+>>> ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
+``` 
+* You must **copy** the generated string into the constant. Rename the file to ```settings_secret.py``` (remove 'template' from filename)
 * Go to the root directory of the repo and setup database tables with ```python manage.py migrate```
 * Use ```python manage.py createsuperuser``` to create an admin account on your Django application.
 * Start the Django development server with ```python manage.py runserver```. You should see a message that your application is running on localhost:8000.
