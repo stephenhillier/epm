@@ -27,8 +27,8 @@ This repository contains both the API server and the frontend website for Earthw
 ``` 
 * You must **copy** the generated string into the constant. Rename the file to ```settings_secret.py``` (remove 'template' from filename)
 * Go to the root directory of the repo and setup database tables with ```python manage.py migrate```
-* Use ```python manage.py createsuperuser``` to create an admin account on your Django application.
-* Start the Django development server with ```python manage.py runserver```. You should see a message that your application is running on localhost:8000.
+* Use ```python manage.py createsuperuser``` to create an admin account for the backend API.
+* Start the Django development server with ```python manage.py runserver```. You should see a message that your application is running on localhost:8000. Try logging in with your admin account at localhost:8000/admin/ and see the API at localhost:8000/projects/api/
 * For production systems, use gunicorn and nginx.
 ### Web app (Vue.JS) setup
 * Enter the epm-web folder from the repository root
