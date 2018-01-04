@@ -5,7 +5,7 @@ This repository contains both the API server and the frontend website for Earthw
 
 ## Installation requirements
 * **Python 3**, with ability to create virtual environments
-* **PostgreSQL** (tested with 9.4, 9.6, 10.1)
+* **PostgreSQL** (tested with 9.5, 9,6, 10.1)
 * **PostGIS** extension for postgresql
 * **npm** package manager
 
