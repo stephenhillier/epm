@@ -8,7 +8,7 @@ To load the frontend for development, you can add the dev server (localhost:8080
 
 Alternatively, use ```npm run dev``` but serve the development ```index.html``` file with Django. It should load ```app.js``` that webpack builds for development. See ```../projects/templates/projects/home.html```.
 
-When running the API server locally, check that ```const api``` in ```src/vuex/index.js``` is equal to ```127.0.0.1:8000/projects/```. 
+When running the API server locally, check that ```const api``` in ```src/vuex/index.js``` points to ```127.0.0.1:8000/projects/```. 
 
 ## Build Setup
 
